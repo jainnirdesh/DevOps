@@ -1,2 +1,2 @@
-# DevOps-Lab-1
+# DevOps
 Semester 7
