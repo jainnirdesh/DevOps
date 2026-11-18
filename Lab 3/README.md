@@ -56,3 +56,13 @@ All seven local lab tasks completed. Ansible recap: 9 OK, 0 failed. Terraform ap
 Trivy recorded **48 HIGH package findings and 0 CRITICAL**. The CRITICAL-only gate passed; this does not mean the image has no vulnerabilities. Full findings are in `evidence/task4-vulnerabilities.json` and the scan transcript is in `evidence/task4-security.log`.
 
 Initial download timeouts, Logstash's original 128 MB heap error, and the corrected final execution are retained in evidence. The final Logstash configuration uses a 512 MB heap and one pipeline worker. Terraform remains a local simulation; Jenkinsfile is configured but no Jenkins server job was run.
+
+## Task-wise Markdown reports
+
+- [Task 1: Automate application deployment with Ansible](docs/Task1_Ansible_Infrastructure_Automation.md)
+- [Task 2: Provision infrastructure configuration with Terraform](docs/Task2_Terraform_IaC.md)
+- [Task 3: Implement centralized logging with ELK](docs/Task3_ELK_Centralized_Logging.md)
+- [Task 4: Integrate container security scanning into CI/CD](docs/Task4_DevSecOps_CICD_Security.md)
+- [Task 5: Set up monitoring with Prometheus and Grafana](docs/Task5_Prometheus_Grafana_Monitoring.md)
+- [Task 6: Implement feature flags and automated tests](docs/Task6_Feature_Flags_Testing.md)
+- [Task 7: Monitoring, logging, and DevSecOps report](docs/Task7_Monitoring_Logging_DevSecOps_Report.md)
