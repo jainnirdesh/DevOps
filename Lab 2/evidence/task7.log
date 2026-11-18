@@ -1,0 +1,73 @@
+Lab 2 Task 7 - actual execution log
+$ docker network create lab2-net
+e84bd653271cfb1a2532e5ab47e7a0460da927d97ecc6e4a86ff815f52f19ec3
+$ docker run -d --name lab2-net-app --network lab2-net lab2-python-app:1.0
+fa2a0cb43436e94bf64f248091fd27e0c3f3a594ff7c84f39f4ddec54b3ae66e
+$ docker run -d --name lab2-net-client --network lab2-net lab2-python-app:1.0 sleep 3600
+12c6edb1fb94e649f0039bf06dda3a6506cf696617334f0d7dcdad43e05558c7
+$ docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' lab2-net-app
+172.18.0.2
+$ docker exec lab2-net-client python -c 'import urllib.request; print(urllib.request.urlopen("http://lab2-net-app:5000/health").read().decode())'
+{"status":"healthy"}
+
+$ docker exec lab2-net-client python -c 'import urllib.request; print(urllib.request.urlopen("http://172.18.0.2:5000/health").read().decode())'
+{"status":"healthy"}
+
+$ docker network inspect lab2-net
+[
+    {
+        "Name": "lab2-net",
+        "Id": "e84bd653271cfb1a2532e5ab47e7a0460da927d97ecc6e4a86ff815f52f19ec3",
+        "Created": "2026-11-18T11:30:10.984954079+05:30",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {},
+        "Containers": {
+            "12c6edb1fb94e649f0039bf06dda3a6506cf696617334f0d7dcdad43e05558c7": {
+                "Name": "lab2-net-client",
+                "EndpointID": "854a875958e376e4d23fd2e67affa88aae7ff699faddb7ae0bf747504866eb10",
+                "MacAddress": "e6:70:da:68:e2:03",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            },
+            "fa2a0cb43436e94bf64f248091fd27e0c3f3a594ff7c84f39f4ddec54b3ae66e": {
+                "Name": "lab2-net-app",
+                "EndpointID": "11c16ec4ed3c174ac09edc42a137d6eb1eee0cd8c60501be16c3186a7648782c",
+                "MacAddress": "d6:98:1b:9e:87:8f",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.18.0.0/16": {
+                        "IPsInUse": 5,
+                        "DynamicIPsAvailable": 65531
+                    }
+                }
+            }
+        }
+    }
+]
+RESULT: PASS

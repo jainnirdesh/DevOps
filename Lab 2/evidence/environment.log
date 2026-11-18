@@ -1,0 +1,72 @@
+$ uname -sm
+Darwin arm64
+
+$ docker --version
+Docker version 29.10.0, build fdd4b8e5da
+
+$ docker-compose version
+Docker Compose version 5.8.0
+
+$ docker buildx version
+github.com/docker/buildx v0.39.0 Homebrew
+
+$ colima version
+colima version 0.10.3
+git commit: 00f6c297e92a82c04a4ab507db0a61435650d7e8
+
+$ minikube version
+minikube version: v1.39.0
+commit: 7a9f6a841470a207de8cf4bafcccee0969d8ba10
+
+$ kubectl version --client=true
+Client Version: v1.37.2
+Kustomize Version: v5.8.1
+$ docker --context colima-lab2 version
+Client: Docker Engine - Community
+ Version:           29.10.0
+ API version:       1.54 (downgraded from 1.57)
+ Go version:        go1.27.4
+ Git commit:        fdd4b8e5da
+ Built:             Fri Nov 13 13:30:47 2026
+ OS/Arch:           darwin/arm64
+ Context:           colima-lab2
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          29.5.2
+  API version:      1.54 (minimum version 1.40)
+  Go version:       go1.26.3
+  Git commit:       568f755
+  Built:            Wed May 20 14:39:25 2026
+  OS/Arch:          linux/arm64
+  Experimental:     false
+ containerd:
+  Version:          v2.2.4
+  GitCommit:        193637f7ee8ae5f5aa5248f49e7baa3e6164966e
+ runc:
+  Version:          1.3.5
+  GitCommit:        v1.3.5-0-g488fc13e
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+$ kubectl --context lab2 version
+Client Version: v1.37.2
+Kustomize Version: v5.8.1
+Server Version: v1.37.0
+
+$ kubectl --context lab2 get nodes -o wide
+NAME   STATUS   ROLES           AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION              CONTAINER-RUNTIME
+lab2   Ready    control-plane   3m    v1.37.0   192.168.49.2   <none>        Debian GNU/Linux 12 (bookworm)   6.8.0-117-generic (arm64)   containerd://2.3.4
+
+$ kubectl --context lab2 -n lab2 get deployment,pods,svc -o wide
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES              SELECTOR
+deployment.apps/lab2-app   2/2     2            2           67s   web          lab2-python-app:3   app=lab2-app
+
+NAME                           READY   STATUS    RESTARTS   AGE   IP            NODE   NOMINATED NODE   READINESS GATES
+pod/lab2-app-6979d9457-lmhn9   1/1     Running   0          41s   10.244.0.12   lab2   <none>           <none>
+pod/lab2-app-6979d9457-nzq8z   1/1     Running   0          41s   10.244.0.13   lab2   <none>           <none>
+
+NAME                   TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+service/lab2-service   NodePort   10.105.198.215   <none>        80:30080/TCP   67s   app=lab2-app
+

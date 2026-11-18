@@ -1,0 +1,31 @@
+{
+  "4": {
+    "status": "PASS",
+    "log": "evidence/task4.log"
+  },
+  "5": {
+    "status": "PASS",
+    "log": "evidence/task5.log",
+    "note": "Compose retry recovered from Docker Hub TLS handshake timeout."
+  },
+  "6": {
+    "status": "PASS",
+    "log": "evidence/task6.log"
+  },
+  "7": {
+    "status": "PASS",
+    "log": "evidence/task7.log"
+  },
+  "1": {
+    "status": "PASS",
+    "log": "evidence/task1.log"
+  },
+  "2": {
+    "status": "PASS",
+    "log": "evidence/task2.log"
+  },
+  "8": {
+    "status": "PASS",
+    "log": "evidence/task8.log"
+  }
+}

@@ -1,0 +1,169 @@
+Lab 2 Task 4 - actual execution log
+$ docker version
+Client: Docker Engine - Community
+ Version:           29.10.0
+ API version:       1.54 (downgraded from 1.57)
+ Go version:        go1.27.4
+ Git commit:        fdd4b8e5da
+ Built:             Fri Nov 13 13:30:47 2026
+ OS/Arch:           darwin/arm64
+ Context:           colima-lab2
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          29.5.2
+  API version:      1.54 (minimum version 1.40)
+  Go version:       go1.26.3
+  Git commit:       568f755
+  Built:            Wed May 20 14:39:25 2026
+  OS/Arch:          linux/arm64
+  Experimental:     false
+ containerd:
+  Version:          v2.2.4
+  GitCommit:        193637f7ee8ae5f5aa5248f49e7baa3e6164966e
+ runc:
+  Version:          1.3.5
+  GitCommit:        v1.3.5-0-g488fc13e
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+$ docker build -t lab2-python-app:1.0 app
+#0 building with "colima-lab2" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 219B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 7.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 66B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 820B done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#5 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b done
+#5 sha256:70b4f81c82dc6ea2a5fc08c59c75940cc3f45dad8e2038b7773cd1b6ac24c7a0 0B / 249B 0.2s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 0B / 30.21MB 0.2s
+#5 sha256:0373269344dc260a94623aecbafee3cf336984ad3bbe8a49ac047d85aa69be9b 0B / 1.27MB 0.3s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 0B / 12.06MB 0.3s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 1.05MB / 12.06MB 0.6s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 2.10MB / 12.06MB 0.9s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 3.15MB / 12.06MB 1.2s
+#5 sha256:0373269344dc260a94623aecbafee3cf336984ad3bbe8a49ac047d85aa69be9b 1.27MB / 1.27MB 1.5s done
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 4.19MB / 12.06MB 1.7s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 3.15MB / 30.21MB 2.4s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 5.24MB / 30.21MB 2.6s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 8.39MB / 30.21MB 2.9s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 10.49MB / 30.21MB 3.0s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 12.58MB / 30.21MB 3.2s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 15.73MB / 30.21MB 3.5s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 17.83MB / 30.21MB 3.6s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 20.97MB / 30.21MB 3.9s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 23.07MB / 30.21MB 4.1s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 5.24MB / 12.06MB 4.4s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 26.21MB / 30.21MB 4.4s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 28.31MB / 30.21MB 4.7s
+#5 sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 30.21MB / 30.21MB 4.9s done
+#5 extracting sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef
+#5 sha256:70b4f81c82dc6ea2a5fc08c59c75940cc3f45dad8e2038b7773cd1b6ac24c7a0 0B / 249B 5.4s
+#5 extracting sha256:acd43e9bebc37bc4ba7a5f47bd7598913337803e53d468f37d940f11f5d5f1ef 0.3s done
+#5 extracting sha256:0373269344dc260a94623aecbafee3cf336984ad3bbe8a49ac047d85aa69be9b 0.0s done
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 6.29MB / 12.06MB 8.4s
+#5 sha256:70b4f81c82dc6ea2a5fc08c59c75940cc3f45dad8e2038b7773cd1b6ac24c7a0 0B / 249B 10.5s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 7.34MB / 12.06MB 10.5s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 8.39MB / 12.06MB 11.6s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 9.44MB / 12.06MB 13.1s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 10.49MB / 12.06MB 15.0s
+#5 sha256:70b4f81c82dc6ea2a5fc08c59c75940cc3f45dad8e2038b7773cd1b6ac24c7a0 0B / 249B 15.6s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 11.53MB / 12.06MB 16.2s
+#5 sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 12.06MB / 12.06MB 16.5s done
+#5 extracting sha256:0ba3a3e89cd986f09d548ebfd13261fd4ad86bb310bb69923010538e0c5ce222 0.1s done
+#5 sha256:70b4f81c82dc6ea2a5fc08c59c75940cc3f45dad8e2038b7773cd1b6ac24c7a0 249B / 249B 16.7s done
+#5 extracting sha256:70b4f81c82dc6ea2a5fc08c59c75940cc3f45dad8e2038b7773cd1b6ac24c7a0 done
+#5 DONE 16.8s
+
+#6 [2/6] WORKDIR /app
+#6 DONE 0.1s
+
+#7 [3/6] COPY requirements.txt .
+#7 DONE 0.0s
+
+#8 [4/6] RUN pip install --no-cache-dir -r requirements.txt
+#8 1.892 Collecting Flask==3.1.2 (from -r requirements.txt (line 1))
+#8 3.999   Downloading flask-3.1.2-py3-none-any.whl.metadata (3.2 kB)
+#8 4.326 Collecting blinker>=1.9.0 (from Flask==3.1.2->-r requirements.txt (line 1))
+#8 4.342   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+#8 4.667 Collecting click>=8.1.3 (from Flask==3.1.2->-r requirements.txt (line 1))
+#8 4.685   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+#8 5.022 Collecting itsdangerous>=2.2.0 (from Flask==3.1.2->-r requirements.txt (line 1))
+#8 5.275   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+#8 5.578 Collecting jinja2>=3.1.2 (from Flask==3.1.2->-r requirements.txt (line 1))
+#8 5.595   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#8 21.29 Collecting markupsafe>=2.1.1 (from Flask==3.1.2->-r requirements.txt (line 1))
+#8 21.32   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (2.7 kB)
+#8 21.78 Collecting werkzeug>=3.1.0 (from Flask==3.1.2->-r requirements.txt (line 1))
+#8 21.80   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+#8 21.89 Downloading flask-3.1.2-py3-none-any.whl (103 kB)
+#8 22.64 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#8 23.18 Downloading click-8.5.1-py3-none-any.whl (126 kB)
+#8 30.23 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#8 30.29 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#8 34.31 Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (24 kB)
+#8 34.48 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+#8 37.65 Installing collected packages: markupsafe, itsdangerous, click, blinker, werkzeug, jinja2, Flask
+#8 37.83 Successfully installed Flask-3.1.2 blinker-1.9.0 click-8.5.1 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 werkzeug-3.1.9
+#8 37.83 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#8 38.96 
+#8 38.96 [notice] A new release of pip is available: 25.0.1 -> 26.3
+#8 38.96 [notice] To update, run: pip install --upgrade pip
+#8 DONE 39.0s
+
+#9 [5/6] COPY app.py .
+#9 DONE 0.0s
+
+#10 [6/6] RUN mkdir -p /data
+#10 DONE 0.1s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 0.3s done
+#11 exporting manifest sha256:f84324e9f199ac3ba049257c552362cf0bff07a7bf1846dba4aa48a659fb7301 done
+#11 exporting config sha256:2966c3db64ede7a7db0ca1f6c5d78cd12931a965013eaaa1990580e231535731 done
+#11 exporting attestation manifest sha256:a37b23cc87d1ad0337a4f9af69364dffbfa3187c25a110dfc9263eaee29629eb done
+#11 exporting manifest list sha256:fbe5592e9374df1b721320ed8fdd0510a51455810e5ed5f650dba4259fee54b7 done
+#11 naming to docker.io/library/lab2-python-app:1.0 done
+#11 unpacking to docker.io/library/lab2-python-app:1.0 0.1s done
+#11 DONE 0.4s
+$ docker run -d --name lab2-app -p 127.0.0.1:5004:5000 lab2-python-app:1.0
+40ab6e2f038818ca238b03a64fa1105ce9c05eba2572aae7f609ed77c3e7241d
+GET http://127.0.0.1:5004/health
+{"status": "healthy"}
+GET http://127.0.0.1:5004/
+{"hostname": "40ab6e2f0388", "message": "Welcome to Lab 2 - VERSION 1.0", "visits": 1}
+$ docker history lab2-python-app:1.0
+IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT
+fbe5592e9374   2 seconds ago    CMD ["python" "app.py"]                         0B        buildkit.dockerfile.v0
+<missing>      2 seconds ago    EXPOSE [5000/tcp]                               0B        buildkit.dockerfile.v0
+<missing>      2 seconds ago    RUN /bin/sh -c mkdir -p /data # buildkit        8.19kB    buildkit.dockerfile.v0
+<missing>      2 seconds ago    COPY app.py . # buildkit                        12.3kB    buildkit.dockerfile.v0
+<missing>      2 seconds ago    RUN /bin/sh -c pip install --no-cache-dir -r…   15.5MB    buildkit.dockerfile.v0
+<missing>      41 seconds ago   COPY requirements.txt . # buildkit              12.3kB    buildkit.dockerfile.v0
+<missing>      41 seconds ago   WORKDIR /app                                    8.19kB    buildkit.dockerfile.v0
+<missing>      12 days ago      CMD ["python3"]                                 0B        buildkit.dockerfile.v0
+<missing>      12 days ago      RUN /bin/sh -c set -eux;  for src in idle3 p…   16.4kB    buildkit.dockerfile.v0
+<missing>      12 days ago      RUN /bin/sh -c set -eux;   savedAptMark="$(a…   44.7MB    buildkit.dockerfile.v0
+<missing>      12 days ago      ENV PYTHON_SHA256=b5796915dc45ff745cfb4e990a…   0B        buildkit.dockerfile.v0
+<missing>      12 days ago      ENV PYTHON_VERSION=3.12.16                      0B        buildkit.dockerfile.v0
+<missing>      12 days ago      ENV GPG_KEY=7169605F62C751356D054A26A821E680…   0B        buildkit.dockerfile.v0
+<missing>      12 days ago      RUN /bin/sh -c set -eux;  apt-get update;  a…   4.97MB    buildkit.dockerfile.v0
+<missing>      12 days ago      ENV LANG=C.UTF-8                                0B        buildkit.dockerfile.v0
+<missing>      12 days ago      ENV PATH=/usr/local/bin:/usr/local/sbin:/usr…   0B        buildkit.dockerfile.v0
+<missing>      13 days ago      # debian.sh --arch 'arm64' out/ 'trixie' '@1…   110MB     debuerreotype 0.17
+$ docker image inspect lab2-python-app:1.0 --format '{{json .RootFS.Layers}}'
+["sha256:04e61ff9ed2c84e88795bf7562d69d0980188e2bb6d6152d6fe721383e10db9e","sha256:8a6e20eb4e4040b1d94bc6e06af31e37e5fa4bd264ee163f43a15b1e3a18949c","sha256:4018623d5e6937415351e3d8697eb27327b530a0d1f2f8935b77363f591aadf9","sha256:bc69d47cb8c450fdb1acccf3e8c91367eed93857769e309acf5ef34894ea28ad","sha256:ec477e0ba7d9f03c0b1da81d169371ca538ba5621b9141d219846650a9a04e28","sha256:355308a3589958a456fb497a2c8c440bae85e07c59a9504a79dbdd98c7fd1939","sha256:266070e180403861c8a8fd11779ea70c1b1d00d3cdc81263632467489088b67a","sha256:a86cfc48e2b41b349e10fe842f38d9b7ca9e9063cb636c05d3713bb46dec85f6","sha256:6f286b878ca9b2680d92ab2baca67408e903aa35b259462861378577e1026396"]
+RESULT: PASS

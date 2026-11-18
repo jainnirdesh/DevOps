@@ -1,0 +1,21 @@
+name: lab2-compose
+services:
+  web:
+    build: ./web
+    image: lab2-compose-web:1.0
+    ports:
+      - "127.0.0.1:5001:5000"
+    environment:
+      REDIS_HOST: redis
+    depends_on:
+      redis:
+        condition: service_healthy
+  redis:
+    image: redis:7-alpine
+    expose:
+      - "6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 2s
+      retries: 30

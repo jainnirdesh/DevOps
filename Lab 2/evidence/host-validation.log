@@ -1,0 +1,6 @@
+Flask VERSION 1.0: /health, welcome response and counter 1->2->3 PASS
+Flask VERSION 2.0: /health, welcome response and counter 1->2->3 PASS
+Lab 2/k8s/deployment.yaml: YAML parse PASS
+Lab 2/k8s/service.yaml: YAML parse PASS
+Lab 2/k8s/namespace.yaml: YAML parse PASS
+Lab 2/compose/compose.yaml: YAML parse PASS

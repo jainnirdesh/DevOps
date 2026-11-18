@@ -1,0 +1,5 @@
+Preparing verified official Docker image archive...
+Compressed layer, config and uncompressed rootfs digests verified.
+Loaded image: gcr.io/k8s-minikube/kicbase:v0.0.51
+Loaded image: kicbase/stable:v0.0.51
+Official Kubernetes base image imported successfully.

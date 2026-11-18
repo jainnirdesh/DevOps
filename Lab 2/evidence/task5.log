@@ -1,0 +1,446 @@
+Lab 2 Task 5 - actual execution log
+$ docker ps
+CONTAINER ID   IMAGE                 COMMAND           CREATED         STATUS        PORTS                      NAMES
+40ab6e2f0388   lab2-python-app:1.0   "python app.py"   2 seconds ago   Up 1 second   127.0.0.1:5004->5000/tcp   lab2-app
+$ docker stop lab2-app
+lab2-app
+$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND           CREATED          STATUS                                PORTS     NAMES
+40ab6e2f0388   lab2-python-app:1.0   "python app.py"   12 seconds ago   Exited (137) Less than a second ago             lab2-app
+$ docker start lab2-app
+lab2-app
+GET http://127.0.0.1:5004/health
+{"status": "healthy"}
+$ docker exec lab2-app ls /app
+app.py
+requirements.txt
+$ docker stop lab2-app
+lab2-app
+$ docker rm lab2-app
+lab2-app
+$ docker images lab2-python-app
+IMAGE                 ID             DISK USAGE   CONTENT SIZE   EXTRA
+lab2-python-app:1.0   fbe5592e9374        223MB         48.6MB        
+$ docker run -d -p 127.0.0.1:5050:5000 --name lab2-registry registry:2
+Unable to find image 'registry:2' locally
+2: Pulling from library/registry
+ddcb6d98388d: Pulling fs layer
+8bbaad1488a8: Pulling fs layer
+95459497489f: Pulling fs layer
+bd39ca3613a6: Pulling fs layer
+9a6b3f59ebc2: Pulling fs layer
+95459497489f: Download complete
+bd39ca3613a6: Download complete
+8bbaad1488a8: Download complete
+ddcb6d98388d: Download complete
+9a6b3f59ebc2: Download complete
+95459497489f: Pull complete
+bd39ca3613a6: Pull complete
+8bbaad1488a8: Pull complete
+ddcb6d98388d: Pull complete
+9a6b3f59ebc2: Pull complete
+94a5ce400b19: Download complete
+c4472e68032e: Download complete
+Digest: sha256:a3d8aaa63ed8681a604f1dea0aa03f100d5895b6a58ace528858a7b332415373
+Status: Downloaded newer image for registry:2
+beed4117113fec56346ff88f0327923ec2ae37e2c2a3aed61a423654b458ec96
+GET http://127.0.0.1:5050/v2/
+{}
+$ docker tag lab2-python-app:1.0 localhost:5050/lab2-python-app:1.0
+$ docker push localhost:5050/lab2-python-app:1.0
+The push refers to repository [localhost:5050/lab2-python-app]
+c439f6ed105b: Pushed
+70b4f81c82dc: Pushed
+d6c2c841bcbc: Pushed
+acd43e9bebc3: Pushed
+6b55c3f44c3c: Pushed
+5d48538803c7: Pushed
+2ba145799012: Pushed
+0373269344dc: Pushed
+0ba3a3e89cd9: Pushed
+28fe7ef9dbae: Pushed
+1.0: digest: sha256:fbe5592e9374df1b721320ed8fdd0510a51455810e5ed5f650dba4259fee54b7 size: 856
+GET http://127.0.0.1:5050/v2/_catalog
+{"repositories": ["lab2-python-app"]}
+$ docker-compose -f compose/compose.yaml up -d --build
+ Image redis:7-alpine Pulling 
+ 16cda2556898 Pulling fs layer 0B
+ fea5b91588ca Pulling fs layer 0B
+ fb602ba0b128 Pulling fs layer 0B
+ 54abef31ddd9 Pulling fs layer 0B
+ 8fe75981dbac Pulling fs layer 0B
+ e8978eba2bb2 Pulling fs layer 0B
+ 4f4fb700ef54 Pulling fs layer 0B
+ a99ab7f50347 Download complete 0B
+ 16cda2556898 Download complete 0B
+ 4704a97c8705 Download complete 0B
+ fb602ba0b128 Download complete 0B
+ 8fe75981dbac Download complete 0B
+ 54abef31ddd9 Downloading 1.049MB
+ 54abef31ddd9 Downloading 2.097MB
+ 54abef31ddd9 Downloading 3.146MB
+ 54abef31ddd9 Downloading 3.146MB
+ 54abef31ddd9 Downloading 4.194MB
+ 54abef31ddd9 Downloading 5.243MB
+ 54abef31ddd9 Downloading 6.291MB
+ 54abef31ddd9 Downloading 7.34MB
+ 4f4fb700ef54 Download complete 0B
+ 54abef31ddd9 Downloading 7.34MB
+ 54abef31ddd9 Downloading 8.389MB
+ e8978eba2bb2 Download complete 0B
+ 54abef31ddd9 Downloading 9.437MB
+ fea5b91588ca Downloading 1.049MB
+ 54abef31ddd9 Downloading 9.437MB
+ fea5b91588ca Downloading 3.146MB
+ 54abef31ddd9 Downloading 9.437MB
+ fea5b91588ca Download complete 0B
+ 54abef31ddd9 Downloading 10.49MB
+ fea5b91588ca Extracting 1B
+ 54abef31ddd9 Downloading 11.53MB
+ fb602ba0b128 Pull complete 0B
+ 8fe75981dbac Pull complete 0B
+ fea5b91588ca Pull complete 0B
+ 54abef31ddd9 Downloading 11.53MB
+ 54abef31ddd9 Downloading 11.53MB
+ 54abef31ddd9 Downloading 11.53MB
+ 54abef31ddd9 Downloading 11.53MB
+ 54abef31ddd9 Downloading 11.53MB
+ 54abef31ddd9 Downloading 11.53MB
+ 54abef31ddd9 Download complete 0B
+ 54abef31ddd9 Extracting 1B
+ 16cda2556898 Pull complete 0B
+ 4f4fb700ef54 Pull complete 0B
+ e8978eba2bb2 Pull complete 0B
+ 54abef31ddd9 Pull complete 0B
+ Image redis:7-alpine Pulled 
+ Image lab2-compose-web:1.0 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 572B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 219B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim
+#3 ERROR: failed to do request: Head "https://registry-1.docker.io/v2/library/python/manifests/3.12-slim": net/http: TLS handshake timeout
+------
+ > [internal] load metadata for docker.io/library/python:3.12-slim:
+------
+Dockerfile:1
+
+--------------------
+
+   1 | >>> FROM python:3.12-slim
+
+   2 |     WORKDIR /app
+
+   3 |     COPY requirements.txt .
+
+--------------------
+
+failed to solve: python:3.12-slim: failed to resolve source metadata for docker.io/library/python:3.12-slim: failed to do request: Head "https://registry-1.docker.io/v2/library/python/manifests/3.12-slim": net/http: TLS handshake timeout
+
+78410 v0.39.0 /Users/nirdeshjain/.docker/cli-plugins/docker-buildx bake --file - --progress rawjson --metadata-file /var/folders/5_/5mzr5pgj6nv_38s0t8yd6yrh0000gn/T/compose-build-metadataFile-5e3eee56-5a8e-4e96-b7db-1deb4df7ef67.json --allow fs.read=/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 2/compose/web --allow fs.read=/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 2/compose/web/Dockerfile
+
+google.golang.org/grpc.(*ClientConn).Invoke
+
+	google.golang.org/grpc@v1.85.0/call.go:35
+
+github.com/moby/buildkit/frontend/gateway/pb.(*lLBBridgeClient).Solve
+
+	github.com/moby/buildkit@v0.35.0/frontend/gateway/pb/gateway_grpc.pb.go:105
+
+github.com/moby/buildkit/client.(*gatewayClientForBuild).Solve
+
+	github.com/moby/buildkit@v0.35.0/client/build.go:98
+
+github.com/moby/buildkit/frontend/gateway/grpcclient.(*grpcClient).Solve
+
+	github.com/moby/buildkit@v0.35.0/frontend/gateway/grpcclient/client.go:417
+
+github.com/docker/buildx/build.solve
+
+	github.com/docker/buildx/build/build.go:1656
+
+github.com/docker/buildx/build.Build.func4.7.3
+
+	github.com/docker/buildx/build/build.go:902
+
+github.com/moby/buildkit/frontend/gateway/grpcclient.(*grpcClient).Run
+
+	github.com/moby/buildkit@v0.35.0/frontend/gateway/grpcclient/client.go:220
+
+github.com/moby/buildkit/client.(*Client).Build.func2
+
+	github.com/moby/buildkit@v0.35.0/client/build.go:59
+
+github.com/moby/buildkit/client.(*Client).solve.func3
+
+	github.com/moby/buildkit@v0.35.0/client/solve.go:369
+
+golang.org/x/sync/errgroup.(*Group).Go.func1
+
+	golang.org/x/sync@v0.24.0/errgroup/errgroup.go:93
+
+runtime.goexit
+
+	runtime/asm_arm64.s:1039
+
+
+
+1552  /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --host-gateway-ip=192.168.5.2
+
+github.com/moby/buildkit/frontend/gateway.(*llbBridgeForwarder).Return
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/gateway.go:1024
+
+github.com/moby/buildkit/control/gateway.(*GatewayForwarder).Return
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/control/gateway/gateway.go:109
+
+github.com/moby/buildkit/frontend/gateway/pb._LLBBridge_Return_Handler.func1
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/pb/gateway_grpc.pb.go:523
+
+google.golang.org/grpc.getChainUnaryHandler.func1
+
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1243
+
+github.com/moby/moby/v2/daemon/server/router/grpc.unaryInterceptor
+
+	/root/build-deb/engine/daemon/server/router/grpc/grpc.go:77
+
+google.golang.org/grpc.NewServer.chainUnaryServerInterceptors.chainUnaryInterceptors.func1
+
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1234
+
+github.com/moby/buildkit/frontend/gateway/pb._LLBBridge_Return_Handler
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/pb/gateway_grpc.pb.go:525
+
+google.golang.org/grpc.(*Server).processUnaryRPC
+
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1430
+
+google.golang.org/grpc.(*Server).handleStream
+
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1856
+
+google.golang.org/grpc.(*Server).serveStreams.func2.1
+
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1065
+
+runtime.goexit
+
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+
+
+1552  /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --host-gateway-ip=192.168.5.2
+
+github.com/moby/buildkit/client/llb/sourceresolver.(*imageMetaResolver).ResolveImageConfig
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/client/llb/sourceresolver/imageresolver.go:51
+
+github.com/moby/buildkit/frontend/gateway/forwarder.(*BridgeClient).ResolveImageConfig
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/forwarder/forward.go:97
+
+github.com/moby/buildkit/frontend/dockerfile/builder.(*withResolveCache).ResolveImageConfig.func1
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/dockerfile/builder/resolvecache.go:37
+
+github.com/moby/buildkit/util/flightcontrol.(*CachedGroup[...]).Do.func1
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/util/flightcontrol/cached.go:43
+
+github.com/moby/buildkit/util/flightcontrol.(*call[...]).run
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/util/flightcontrol/flightcontrol.go:122
+
+sync.(*Once).doSlow
+
+	/usr/local/go/src/sync/once.go:78
+
+sync.(*Once).Do
+
+	/usr/local/go/src/sync/once.go:69
+
+runtime.goexit
+
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+
+
+78410 v0.39.0 /Users/nirdeshjain/.docker/cli-plugins/docker-buildx bake --file - --progress rawjson --metadata-file /var/folders/5_/5mzr5pgj6nv_38s0t8yd6yrh0000gn/T/compose-build-metadataFile-5e3eee56-5a8e-4e96-b7db-1deb4df7ef67.json --allow fs.read=/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 2/compose/web --allow fs.read=/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 2/compose/web/Dockerfile
+
+google.golang.org/grpc.(*ClientConn).Invoke
+
+	google.golang.org/grpc@v1.85.0/call.go:35
+
+github.com/moby/buildkit/api/services/control.(*controlClient).Solve
+
+	github.com/moby/buildkit@v0.35.0/api/services/control/control_grpc.pb.go:88
+
+github.com/moby/buildkit/client.(*Client).solve.func2
+
+	github.com/moby/buildkit@v0.35.0/client/solve.go:357
+
+golang.org/x/sync/errgroup.(*Group).Go.func1
+
+	golang.org/x/sync@v0.24.0/errgroup/errgroup.go:93
+
+
+
+1552  /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --host-gateway-ip=192.168.5.2
+
+github.com/moby/buildkit/frontend/dockerfile/dockerfile2llb.(*dispatchContext).resolveBaseImage
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/dockerfile/dockerfile2llb/convert.go:704
+
+github.com/moby/buildkit/frontend/dockerfile/dockerfile2llb.(*dispatchContext).resolveReachableStages.func1
+
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/dockerfile/dockerfile2llb/convert.go:608
+
+golang.org/x/sync/errgroup.(*Group).Go.func1
+
+	/root/build-deb/engine/vendor/golang.org/x/sync/errgroup/errgroup.go:93
+
+runtime.goexit
+
+	/usr/local/go/src/runtime/asm_arm64.s:1447
+
+
+
+78410 v0.39.0 /Users/nirdeshjain/.docker/cli-plugins/docker-buildx bake --file - --progress rawjson --metadata-file /var/folders/5_/5mzr5pgj6nv_38s0t8yd6yrh0000gn/T/compose-build-metadataFile-5e3eee56-5a8e-4e96-b7db-1deb4df7ef67.json --allow fs.read=/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 2/compose/web --allow fs.read=/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 2/compose/web/Dockerfile
+
+github.com/moby/buildkit/client.(*Client).solve.func2
+
+	github.com/moby/buildkit@v0.35.0/client/solve.go:359
+
+golang.org/x/sync/errgroup.(*Group).Go.func1
+
+	golang.org/x/sync@v0.24.0/errgroup/errgroup.go:93
+
+
+
+RESULT: FAILED - Command exited with status 1
+ Image lab2-compose-web:1.0 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 572B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 219B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim
+#3 DONE 4.6s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#5 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 596B done
+#6 DONE 0.0s
+
+#7 [2/6] WORKDIR /app
+#7 CACHED
+
+#8 [3/6] COPY requirements.txt .
+#8 DONE 0.0s
+
+#9 [4/6] RUN pip install --no-cache-dir -r requirements.txt
+#9 1.169 Collecting Flask==3.1.2 (from -r requirements.txt (line 1))
+#9 1.294   Downloading flask-3.1.2-py3-none-any.whl.metadata (3.2 kB)
+#9 1.831 Collecting redis==6.4.0 (from -r requirements.txt (line 2))
+#9 1.872   Downloading redis-6.4.0-py3-none-any.whl.metadata (10 kB)
+#9 2.280 Collecting blinker>=1.9.0 (from Flask==3.1.2->-r requirements.txt (line 1))
+#9 2.294   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+#9 3.274 Collecting click>=8.1.3 (from Flask==3.1.2->-r requirements.txt (line 1))
+#9 3.294   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+#9 3.774 Collecting itsdangerous>=2.2.0 (from Flask==3.1.2->-r requirements.txt (line 1))
+#9 3.813   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+#9 5.485 Collecting jinja2>=3.1.2 (from Flask==3.1.2->-r requirements.txt (line 1))
+#9 5.499   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#9 22.02 Collecting markupsafe>=2.1.1 (from Flask==3.1.2->-r requirements.txt (line 1))
+#9 22.07   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (2.7 kB)
+#9 22.31 Collecting werkzeug>=3.1.0 (from Flask==3.1.2->-r requirements.txt (line 1))
+#9 22.32   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+#9 22.39 Downloading flask-3.1.2-py3-none-any.whl (103 kB)
+#9 22.79 Downloading redis-6.4.0-py3-none-any.whl (279 kB)
+#9 37.39 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#9 37.52 Downloading click-8.5.1-py3-none-any.whl (126 kB)
+#9 40.01 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#9 40.56 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#9 48.38 Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (24 kB)
+#9 48.86 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+#9 55.55 Installing collected packages: redis, markupsafe, itsdangerous, click, blinker, werkzeug, jinja2, Flask
+#9 55.82 Successfully installed Flask-3.1.2 blinker-1.9.0 click-8.5.1 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 redis-6.4.0 werkzeug-3.1.9
+#9 55.82 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#9 56.21 
+#9 56.21 [notice] A new release of pip is available: 25.0.1 -> 26.3
+#9 56.21 [notice] To update, run: pip install --upgrade pip
+#9 DONE 56.3s
+
+#10 [5/6] COPY app.py .
+#10 DONE 0.0s
+
+#11 [6/6] RUN mkdir -p /data
+#11 DONE 0.1s
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers 0.3s done
+#12 exporting manifest sha256:1673c817a1d902aafb4739e29cbe51e31afc46ea440ccccad24cfe2f3e8321fd done
+#12 exporting config sha256:9c36735c81a44596e08896c65933e4b65e07fd9c7fc0ecf373a6ac3ae59ffa3b done
+#12 exporting attestation manifest sha256:886376a507ca4343b13f15792e99a2f384e6e93bd975593bb82f5891371920a2 done
+#12 exporting manifest list sha256:b13328e95f5daf238b2a9754d3d2e90326280d820bd30580ad94043240c46169 done
+#12 naming to docker.io/library/lab2-compose-web:1.0 done
+#12 unpacking to docker.io/library/lab2-compose-web:1.0 0.1s done
+#12 DONE 0.4s
+
+#13 resolving provenance for metadata file
+#13 DONE 0.0s
+ Image lab2-compose-web:1.0 Built 
+ Network lab2-compose_default Creating 
+ Network lab2-compose_default Created 
+ Container lab2-compose-redis-1 Creating 
+ Container lab2-compose-redis-1 Created 
+ Container lab2-compose-web-1 Creating 
+ Container lab2-compose-web-1 Created 
+ Container lab2-compose-redis-1 Starting 
+ Container lab2-compose-redis-1 Started 
+ Container lab2-compose-redis-1 Waiting 
+ Container lab2-compose-redis-1 Healthy 
+ Container lab2-compose-web-1 Starting 
+ Container lab2-compose-web-1 Started 
+RESUME: Compose build retried after Docker Hub TLS handshake timeout; retry succeeded.
+$ docker-compose -f compose/compose.yaml ps
+NAME                   IMAGE                  COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+lab2-compose-redis-1   redis:7-alpine         "docker-entrypoint.s…"   redis     26 seconds ago   Up 25 seconds (healthy)   6379/tcp
+lab2-compose-web-1     lab2-compose-web:1.0   "python app.py"          web       26 seconds ago   Up 23 seconds             127.0.0.1:5001->5000/tcp
+GET http://127.0.0.1:5001/health
+{"status": "healthy"}
+GET http://127.0.0.1:5001/
+{"hostname": "263fba564e08", "message": "Lab 2 Compose with Redis", "visits": 1}
+GET http://127.0.0.1:5001/
+{"hostname": "263fba564e08", "message": "Lab 2 Compose with Redis", "visits": 2}
+$ docker-compose -f compose/compose.yaml down
+ Container lab2-compose-web-1 Stopping 
+ Container lab2-compose-web-1 Stopped 
+ Container lab2-compose-web-1 Removing 
+ Container lab2-compose-web-1 Removed 
+ Container lab2-compose-redis-1 Stopping 
+ Container lab2-compose-redis-1 Stopped 
+ Container lab2-compose-redis-1 Removing 
+ Container lab2-compose-redis-1 Removed 
+ Network lab2-compose_default Removing 
+ Network lab2-compose_default Removed 
+RESULT: PASS (all Task 5 sections verified; first Compose build attempt had a transient TLS timeout)

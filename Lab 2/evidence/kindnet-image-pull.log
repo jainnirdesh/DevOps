@@ -1,0 +1,18 @@
+v20260820-69b56db7: Pulling from kindest/kindnetd
+2aa332f3cdf8: Pulling fs layer
+391a43935aa6: Pulling fs layer
+9b11900825b4: Pulling fs layer
+0bc0d93dd464: Pulling fs layer
+0bc0d93dd464: Download complete
+2aa332f3cdf8: Download complete
+391a43935aa6: Download complete
+44136fa355b3: Already exists
+109ecc543e49: Download complete
+9b11900825b4: Download complete
+9b11900825b4: Pull complete
+0bc0d93dd464: Pull complete
+2aa332f3cdf8: Pull complete
+391a43935aa6: Pull complete
+Digest: sha256:526969f0a1a7a788a7a96f53a4ad3b51607bde7bb2841edf52a02916e8d52650
+Status: Downloaded newer image for kindest/kindnetd:v20260820-69b56db7
+docker.io/kindest/kindnetd:v20260820-69b56db7

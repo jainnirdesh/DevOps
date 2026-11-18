@@ -1,0 +1,30 @@
+pipeline {
+  agent any
+  options { disableConcurrentBuilds() }
+  environment {
+    PATH = "/opt/homebrew/bin:${env.PATH}"
+    DOCKER_CONTEXT = 'colima-lab2'
+    DOCKER_HOST = "unix://${env.HOME}/.colima/lab2/docker.sock"
+  }
+  stages {
+    stage('Build Image') {
+      steps { dir('Lab 2') { sh 'docker build -t lab2-python-app:$BUILD_NUMBER app' } }
+    }
+    stage('Load to Minikube') {
+      steps { sh 'minikube -p lab2 image load --daemon=true lab2-python-app:$BUILD_NUMBER' }
+    }
+    stage('Apply Manifests') {
+      steps { dir('Lab 2') { sh 'kubectl --context lab2 apply -f k8s/namespace.yaml && kubectl --context lab2 apply -f k8s/' } }
+    }
+    stage('Deploy New Image') {
+      steps { sh 'kubectl --context lab2 -n lab2 set image deployment/lab2-app web=lab2-python-app:$BUILD_NUMBER' }
+    }
+    stage('Verify') {
+      steps { sh 'kubectl --context lab2 -n lab2 rollout status deployment/lab2-app --timeout=180s' }
+    }
+  }
+  post {
+    success { echo 'Lab 2 deployment successful' }
+    failure { echo 'Lab 2 deployment failed' }
+  }
+}
