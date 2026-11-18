@@ -1,0 +1,128 @@
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding hashicorp/local versions matching "~> 2.0"...
+- Finding hashicorp/null versions matching "~> 3.0"...
+- Installing hashicorp/null v3.3.2...
+- Installed hashicorp/null v3.3.2 (signed by HashiCorp)
+- Installing hashicorp/local v2.9.1...
+- Installed hashicorp/local v2.9.1 (signed by HashiCorp)
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+Success! The configuration is valid.
+
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # local_file.deployment_config will be created
+  + resource "local_file" "deployment_config" {
+      + content              = jsonencode(
+            {
+              + app_name    = "lab3-flask-app"
+              + deployed_at = "2026-11-18T16:25:48Z"
+              + environment = "dev"
+              + instances   = 2
+              + port        = 5003
+              + student_id  = "2301420022"
+              + version     = "1.0"
+            }
+        )
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = "./deployment.json"
+      + id                   = (known after apply)
+    }
+
+  # null_resource.app_instances[0] will be created
+  + resource "null_resource" "app_instances" {
+      + id       = (known after apply)
+      + triggers = {
+          + "app_name"    = "lab3-flask-app"
+          + "instance_id" = "instance-1"
+        }
+    }
+
+  # null_resource.app_instances[1] will be created
+  + resource "null_resource" "app_instances" {
+      + id       = (known after apply)
+      + triggers = {
+          + "app_name"    = "lab3-flask-app"
+          + "instance_id" = "instance-2"
+        }
+    }
+
+  # null_resource.app_server will be created
+  + resource "null_resource" "app_server" {
+      + id       = (known after apply)
+      + triggers = {
+          + "app_name"    = "lab3-flask-app"
+          + "app_version" = "1.0"
+          + "environment" = "dev"
+        }
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + app_name       = "lab3-flask-app"
+  + app_version    = "1.0"
+  + config_file    = "./deployment.json"
+  + environment    = "dev"
+  + instance_count = 2
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: lab3.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "lab3.tfplan"
+null_resource.app_instances[1]: Creating...
+null_resource.app_server: Creating...
+null_resource.app_instances[0]: Creating...
+local_file.deployment_config: Creating...
+null_resource.app_instances[0]: Provisioning with 'local-exec'...
+null_resource.app_server: Provisioning with 'local-exec'...
+null_resource.app_instances[0] (local-exec): Executing: ["/bin/sh" "-c" "echo Started lab3-flask-app instance 1 of 2"]
+null_resource.app_server (local-exec): Executing: ["/bin/sh" "-c" "echo Provisioning lab3-flask-app v1.0 on dev environment"]
+null_resource.app_instances[1]: Provisioning with 'local-exec'...
+null_resource.app_instances[1] (local-exec): Executing: ["/bin/sh" "-c" "echo Started lab3-flask-app instance 2 of 2"]
+local_file.deployment_config: Creation complete after 0s [id=03bd254b1cc42916b63bfc16f9cbe7483a4a8964]
+null_resource.app_instances[0] (local-exec): Started lab3-flask-app instance 1 of 2
+null_resource.app_instances[1] (local-exec): Started lab3-flask-app instance 2 of 2
+null_resource.app_server (local-exec): Provisioning lab3-flask-app v1.0 on dev environment
+null_resource.app_instances[1]: Creation complete after 0s [id=3631961573752077492]
+null_resource.app_server: Creation complete after 0s [id=8627007018017042903]
+null_resource.app_instances[0]: Creation complete after 0s [id=4330058867596572198]
+
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+app_name = "lab3-flask-app"
+app_version = "1.0"
+config_file = "./deployment.json"
+environment = "dev"
+instance_count = 2
