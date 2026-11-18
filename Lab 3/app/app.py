@@ -40,7 +40,6 @@ def index():
     app.logger.info("GET / called")
     return jsonify({
         "message": "Lab 3 Flask App",
-        "student_id": "2301420022",
         "feature_flags": FEATURE_FLAGS,
     })
 

@@ -56,6 +56,5 @@ resource "local_file" "deployment_config" {
     environment = var.environment
     instances   = var.instance_count
     port        = var.app_port
-    student_id  = "2301420022"
   })
 }
