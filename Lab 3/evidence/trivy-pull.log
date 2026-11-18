@@ -10,3 +10,9 @@ ac09fd37397a: Download complete
 d3531b7a4f21: Download complete
 c891f51f7a06: Download complete
 c891f51f7a06: Pull complete
+c156523e858b: Download complete
+ac09fd37397a: Pull complete
+c156523e858b: Pull complete
+Digest: sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb
+Status: Downloaded newer image for aquasec/trivy:latest
+docker.io/aquasec/trivy:latest
