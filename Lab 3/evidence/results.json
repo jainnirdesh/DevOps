@@ -12,12 +12,12 @@
     "detail": "ELK image downloads are in progress. Centralized logging has not yet been verified."
   },
   "4": {
-    "status": "IN PROGRESS",
-    "detail": "Trivy image is available; vulnerability database download is in progress. No scan success is claimed."
+    "status": "PASS",
+    "detail": "Trivy scanned the actual app image; no CRITICAL vulnerabilities reported. Jenkinsfile configured, no Jenkins server job claimed."
   },
   "5": {
-    "status": "IN PROGRESS",
-    "detail": "All three Prometheus targets are up. Grafana image download is in progress."
+    "status": "PASS",
+    "detail": "All three Prometheus targets are UP. Grafana healthy; provisioned datasource health OK and four-panel dashboard verified."
   },
   "6": {
     "status": "PASS",
