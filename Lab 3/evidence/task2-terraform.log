@@ -177,3 +177,54 @@ app_version = "1.0"
 config_file = "./deployment.json"
 environment = "dev"
 instance_count = 2
+null_resource.app_instances[1]: Refreshing state... [id=3631961573752077492]
+null_resource.app_instances[0]: Refreshing state... [id=4330058867596572198]
+null_resource.app_server: Refreshing state... [id=8627007018017042903]
+local_file.deployment_config: Refreshing state... [id=167255b62860db3ed30fd2302bbbd8569057c57f]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # local_file.deployment_config must be replaced
+-/+ resource "local_file" "deployment_config" {
+      ~ content              = jsonencode(
+          ~ {
+              - student_id  = "2301420022"
+                # (5 unchanged attributes hidden)
+            } # forces replacement
+        )
+      ~ content_base64sha256 = "eVCXQVlO/3pFEp0GWIxpP1XeWSwO+MRbQ6rZCay4j1c=" -> (known after apply)
+      ~ content_base64sha512 = "gdftgVFHcbayujFA/1BosNuW9k/5p+G2GZVGIUoeECw/a/K4BKE06E1RkFUlTkmp6Qr0TroMldrdpU7WAYumWQ==" -> (known after apply)
+      ~ content_md5          = "28bd2bebd2bcea2ad285b167685a83eb" -> (known after apply)
+      ~ content_sha1         = "167255b62860db3ed30fd2302bbbd8569057c57f" -> (known after apply)
+      ~ content_sha256       = "79509741594eff7a45129d06588c693f55de592c0ef8c45b43aad909acb88f57" -> (known after apply)
+      ~ content_sha512       = "81d7ed81514771b6b2ba3140ff5068b0db96f64ff9a7e1b6199546214a1e102c3f6bf2b804a134e84d519055254e49a9e90af44eba0c95dadda54ed6018ba659" -> (known after apply)
+      ~ id                   = "167255b62860db3ed30fd2302bbbd8569057c57f" -> (known after apply)
+        # (3 unchanged attributes hidden)
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: lab3.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "lab3.tfplan"
+local_file.deployment_config: Destroying... [id=167255b62860db3ed30fd2302bbbd8569057c57f]
+local_file.deployment_config: Destruction complete after 0s
+local_file.deployment_config: Creating...
+local_file.deployment_config: Creation complete after 0s [id=561bfb9579256ad2cce77727ef951116113f0cc5]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+
+Outputs:
+
+app_name = "lab3-flask-app"
+app_version = "1.0"
+config_file = "./deployment.json"
+environment = "dev"
+instance_count = 2

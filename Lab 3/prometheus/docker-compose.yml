@@ -6,8 +6,6 @@ services:
       - "127.0.0.1:9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
@@ -39,4 +37,5 @@ services:
 
 networks:
   monitoring:
-    driver: bridge
+    name: lab3-network
+    external: true

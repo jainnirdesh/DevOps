@@ -5,12 +5,17 @@
   hosts: local
   become: false
   vars:
+    build_image: true
     app_image: lab3-flask-app
     app_tag: "1.0"
     app_port: 5003
     container_name: lab3-app
 
   tasks:
+    - name: Create shared lab network
+      community.docker.docker_network:
+        name: lab3-network
+
     - name: Ensure app source directory exists
       ansible.builtin.file:
         path: /tmp/lab3-app
@@ -35,6 +40,8 @@
           path: /tmp/lab3-app
         force_source: true
 
+      when: build_image | bool
+
     - name: Stop and remove old container if running
       community.docker.docker_container:
         name: "{{ container_name }}"
@@ -47,9 +54,12 @@
         image: "{{ app_image }}:{{ app_tag }}"
         state: started
         ports:
-          - "{{ app_port }}:5000"
-        etc_hosts:
-          host.docker.internal: host-gateway
+          - "127.0.0.1:{{ app_port }}:5000"
+        networks:
+          - name: lab3-network
+        env:
+          LOGSTASH_HOST: lab3-logstash
+          LOGSTASH_PORT: "5000"
         restart_policy: unless-stopped
 
     - name: Wait for app to be ready

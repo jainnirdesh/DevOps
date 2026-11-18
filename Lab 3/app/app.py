@@ -23,7 +23,7 @@ def observe(response):
         event = {"service": "lab3-flask", "method": request.method, "path": request.path, "status": response.status_code}
         app.logger.info(json.dumps(event))
         try:
-            with socket.create_connection((os.getenv("LOGSTASH_HOST", "host.docker.internal"), 5002), timeout=1) as connection:
+            with socket.create_connection((os.getenv("LOGSTASH_HOST", "host.docker.internal"), int(os.getenv("LOGSTASH_PORT", "5002"))), timeout=1) as connection:
                 connection.sendall((json.dumps(event) + "\n").encode())
         except OSError:
             pass

@@ -1,7 +1,7 @@
 null_resource.app_instances[0]: Refreshing state... [id=4330058867596572198]
 null_resource.app_server: Refreshing state... [id=8627007018017042903]
 null_resource.app_instances[1]: Refreshing state... [id=3631961573752077492]
-local_file.deployment_config: Refreshing state... [id=167255b62860db3ed30fd2302bbbd8569057c57f]
+local_file.deployment_config: Refreshing state... [id=561bfb9579256ad2cce77727ef951116113f0cc5]
 
 No changes. Your infrastructure matches the configuration.
 

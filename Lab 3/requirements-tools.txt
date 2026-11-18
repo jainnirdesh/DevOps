@@ -1,0 +1,5 @@
+ansible
+docker
+requests
+python-docx
+pillow

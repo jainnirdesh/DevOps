@@ -48,4 +48,5 @@ services:
 
 networks:
   elk:
-    driver: bridge
+    name: lab3-network
+    external: true

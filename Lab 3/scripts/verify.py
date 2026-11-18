@@ -43,6 +43,9 @@ def verify():
     assert result['logs']['hits']['total']['value'] > 0, 'Application logs not indexed yet'
     result['kibana'] = get('http://localhost:5601/api/status')
     assert result['kibana']['status']['overall']['level'] == 'available'
+    request = urllib.request.Request('http://localhost:5601/api/saved_objects/index-pattern/lab3-logs?overwrite=true', data=json.dumps({'attributes': {'title': 'lab3-logs-*', 'timeFieldName': '@timestamp'}}).encode(), headers={'Content-Type': 'application/json', 'kbn-xsrf': 'lab3'}, method='POST')
+    with urllib.request.urlopen(request) as response:
+        result['kibana_data_view'] = json.load(response)
     result['prometheus'] = get('http://localhost:9090/api/v1/targets')
     targets = result['prometheus']['data']['activeTargets']
     assert len(targets) == 3 and all(t['health'] == 'up' for t in targets), targets

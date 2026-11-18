@@ -1,94 +1,46 @@
 pipeline {
     agent any
-
     environment {
         IMAGE_NAME = 'lab3-flask-app'
-        IMAGE_TAG  = "${BUILD_NUMBER}"
-        TRIVY_VERSION = 'latest'
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
-
     stages {
-        stage('Checkout') {
+        stage('Build') {
             steps {
-                checkout scm
-                echo "Source code checked out for build #${BUILD_NUMBER}"
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    echo "Building Docker image: ${IMAGE_NAME}:${IMAGE_TAG}"
-                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} app/"
-                    sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest"
+                dir('Lab 3') {
+                    sh 'docker build -t "$IMAGE_NAME:$IMAGE_TAG" app/'
                 }
             }
         }
-
-        stage('Unit Tests') {
+        stage('Feature flag tests') {
             steps {
-                echo "Running unit tests (feature flags)..."
-                sh "python3 feature-flags/test_flags.py"
-            }
-        }
-
-        stage('Security Scan — Trivy') {
-            steps {
-                script {
-                    echo "Running Trivy vulnerability scan on ${IMAGE_NAME}:${IMAGE_TAG}"
-                    sh """
-                        docker run --rm \\
-                          -v /var/run/docker.sock:/var/run/docker.sock \\
-                          aquasec/trivy:${TRIVY_VERSION} image \\
-                          --exit-code 1 \
-                          --severity CRITICAL \\
-                          --no-progress \\
-                          --format table \\
-                          ${IMAGE_NAME}:${IMAGE_TAG}
-                    """
-                }
-            }
-            post {
-                always {
-                    echo "Trivy scan complete — review output for vulnerabilities"
+                dir('Lab 3') {
+                    sh '.venv/bin/python feature-flags/test_flags.py'
                 }
             }
         }
-
-        stage('OWASP Dependency Check') {
+        stage('Critical vulnerability gate') {
             steps {
-                echo "Running OWASP dependency-check..."
-                sh """
-                    docker run --rm \\
-                      -v \$(pwd):/src \\
-                      owasp/dependency-check:latest \\
-                      --scan /src/app \\
-                      --format HTML \\
-                      --out /src/devsecops/dependency-check-report
-                """
+                dir('Lab 3') {
+                    sh 'bash devsecops/trivy_scan.sh "$IMAGE_NAME" "$IMAGE_TAG"'
+                }
             }
         }
-
         stage('Deploy') {
-            when {
-                branch 'main'
-            }
+            when { branch 'main' }
             steps {
-                echo "Deploying ${IMAGE_NAME}:${IMAGE_TAG} to production..."
-                sh "docker compose -f prometheus/docker-compose.yml up -d"
+                dir('Lab 3') {
+                    sh '''
+                        export DOCKER_HOST="$(docker context inspect --format '{{.Endpoints.docker.Host}}')"
+                        .venv/bin/ansible-playbook -i ansible/inventory ansible/playbook.yml \
+                          -e "ansible_python_interpreter=$PWD/.venv/bin/python" \
+                          -e "app_tag=$IMAGE_TAG" -e build_image=false
+                        docker compose -p lab3-elk -f elk/docker-compose.yml up -d
+                        docker compose -p lab3-monitoring -f prometheus/docker-compose.yml up -d
+                        .venv/bin/python scripts/verify.py
+                    '''
+                }
             }
-        }
-    }
-
-    post {
-        success {
-            echo "Pipeline succeeded for build #${BUILD_NUMBER}"
-        }
-        failure {
-            echo "Pipeline FAILED for build #${BUILD_NUMBER} — check logs"
-        }
-        always {
-            sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG} || true"
         }
     }
 }
