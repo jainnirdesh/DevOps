@@ -1,0 +1,42 @@
+$ git init -b main
+Initialized empty Git repository in /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 1/evidence/git-demo/.git/
+$ git config user.name Nirdesh Jain
+$ git config user.email jainnirdesh1@gmail.com
+$ git add app.py
+$ git commit -m Initial commit: greeting application
+[main (root-commit) 24e3f1b] Initial commit: greeting application
+ 1 file changed, 2 insertions(+)
+ create mode 100644 app.py
+$ git checkout -b feature/farewell
+Switched to a new branch 'feature/farewell'
+$ git add app.py
+$ git commit -m Add farewell function
+[feature/farewell 1b02eac] Add farewell function
+ 1 file changed, 3 insertions(+)
+$ git checkout main
+Switched to branch 'main'
+$ git merge feature/farewell
+Updating 24e3f1b..1b02eac
+Fast-forward
+ app.py | 3 +++
+ 1 file changed, 3 insertions(+)
+$ git checkout -b feature/uppercase
+Switched to a new branch 'feature/uppercase'
+$ git add app.py
+$ git commit -m Add shout function
+[feature/uppercase af70cfc] Add shout function
+ 1 file changed, 3 insertions(+)
+$ git checkout main
+Switched to branch 'main'
+$ git merge --no-ff feature/uppercase -m Merge feature/uppercase into main
+Merge made by the 'ort' strategy.
+ app.py | 3 +++
+ 1 file changed, 3 insertions(+)
+$ git log --oneline --graph --all --decorate
+*   3fea871 (HEAD -> main) Merge feature/uppercase into main
+|\  
+| * af70cfc (feature/uppercase) Add shout function
+|/  
+* 1b02eac (feature/farewell) Add farewell function
+* 24e3f1b Initial commit: greeting application
+$ git bundle create /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 1/evidence/git-demo.bundle --all

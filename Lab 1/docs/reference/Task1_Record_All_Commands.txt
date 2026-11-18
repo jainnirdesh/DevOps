@@ -1,0 +1,108 @@
+Lab 1: DevOps Foundations & Continuous Integration
+Task 1: Record all commands, configurations, screenshots and observations
+Yatharth Chopra  |  Repository: github.com/yatharthchopra2424/devops-lab1  |  Jenkins 2.568.2 on AWS EC2 (Ubuntu)
+1. Install and configure Git and Jenkins
+sudo apt update && sudo apt install -y git
+git --version
+git config --global user.name "Yatharth Chopra"
+git config --global user.email "yc9891966@gmail.com"
+git config --global init.defaultBranch main
+git config --global --list
+ 
+sudo apt install -y fontconfig openjdk-21-jre
+(add Jenkins apt repo + key)  sudo apt install -y jenkins
+sudo systemctl enable --now jenkins
+sudo systemctl status jenkins --no-pager
+
+
+Git 2.53.0 installed and global config verified
+
+jenkins.service active (running) on port 8080
+Observation: the Jenkins repository signing key had been rotated, so the 2026 key was needed; the old key gave a NO_PUBKEY error.
+2. Version control with Git
+mkdir ~/devops-lab1 && cd ~/devops-lab1 && git init
+git add . && git commit -m "Initial commit: app and unit test"
+git checkout -b feature/farewell
+git add app.py && git commit -m "Add farewell function"
+git checkout main && git merge feature/farewell
+git checkout -b feature/uppercase
+git add app.py && git commit -m "Add shout function"
+git checkout main && git merge --no-ff feature/uppercase -m "Merge feature/uppercase into main"
+git log --oneline --graph --all --decorate
+git remote add origin https://github.com/yatharthchopra2424/devops-lab1.git
+git push -u origin main && git push origin feature/farewell feature/uppercase
+
+
+Branch created and merged with --no-ff; commit graph
+
+Repository pushed to GitHub
+Observation: the first merge was a fast-forward because main had not moved; --no-ff was used to record an explicit merge commit.
+Commit history (from GitHub)
+0f33ebc Add declarative Jenkinsfile with build, test and deploy stages
+b89da58 Update README to trigger automated Jenkins build
+28064bf Update README to trigger automated Jenkins build
+7192aac Add README to trigger automated build
+639e54a Merge feature/uppercase into main
+40c3e68 Add shout function
+38b6e8c Add farewell function
+7143355 Add farewell function
+1f560df Initial commit: app and unit test
+
+3. Jenkins Freestyle job (pull from GitHub, poll for changes)
+Repository URL   : https://github.com/yatharthchopra2424/devops-lab1.git
+Branch Specifier : */main
+Build Trigger    : Poll SCM  H/5 * * * *
+Build step       : Execute shell
+   python3 --version
+   python3 app.py
+   python3 -m unittest test_app.py -v
+
+
+Source Code Management set to the GitHub repository
+
+Poll SCM trigger every 5 minutes
+
+Build #1 successful
+Observation: Jenkins marked its built-in node offline because /tmp had under 1 GiB free; java.io.tmpdir was moved to /var/lib/jenkins/tmp to fix it.
+4. Jenkinsfile pipeline configuration
+pipeline {
+    agent any
+ 
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building application...'
+                sh 'python3 --version'
+                sh 'python3 -m py_compile app.py'
+                echo 'Build stage complete'
+            }
+        }
+ 
+        stage('Test') {
+            steps {
+                echo 'Running unit tests...'
+                sh 'python3 -m unittest test_app.py -v'
+            }
+        }
+ 
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+                sh 'mkdir -p /tmp/deploy && cp app.py /tmp/deploy/'
+                sh 'python3 /tmp/deploy/app.py'
+                echo 'Deployed successfully'
+            }
+        }
+    }
+ 
+    post {
+        success { echo 'Pipeline completed successfully' }
+        failure { echo 'Pipeline failed' }
+    }
+}
+
+
+Pipeline script from SCM
+
+Pipeline build #1 succeeded (9.3 s) from the Jenkinsfile in GitHub
+Observation: with Pipeline script from SCM, Jenkins reads the Jenkinsfile from GitHub on each run, so the pipeline is versioned with the code.

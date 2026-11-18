@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    environment { PATH = "/opt/homebrew/bin:${env.PATH}" }
+    triggers { pollSCM('H/5 * * * *') }
+    options { disableConcurrentBuilds() }
+    stages {
+        stage('Build') {
+            steps {
+                dir('Lab 1') {
+                    sh 'python3 --version'
+                    sh 'python3 -m py_compile app.py'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                dir('Lab 1') { sh 'python3 -m unittest test_app.py -v' }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                dir('Lab 1') {
+                    sh 'mkdir -p deployment && cp app.py deployment/app.py'
+                    sh 'python3 deployment/app.py'
+                }
+            }
+        }
+    }
+    post {
+        success { echo 'Pipeline completed successfully' }
+        failure { echo 'Pipeline failed' }
+    }
+}

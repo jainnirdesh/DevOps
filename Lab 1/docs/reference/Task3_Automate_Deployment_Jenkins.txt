@@ -1,0 +1,40 @@
+Lab 1: DevOps Foundations & Continuous Integration
+Task 3: Automate application deployment using Jenkins
+Yatharth Chopra  |  Repository: github.com/yatharthchopra2424/devops-lab1  |  Jenkins 2.568.2 on AWS EC2 (Ubuntu)
+1. Objective
+Automate deployment with Jenkins using a build trigger, post-build actions and deployment steps.
+2. Build trigger
+The Freestyle job uses Poll SCM with the schedule H/5 * * * *. Jenkins checks GitHub every five minutes and starts a build when it finds a new commit.
+
+Poll SCM trigger enabled
+3. Automated build from a commit
+A change was pushed to GitHub with no action in Jenkins; Jenkins detected it and started the build.
+echo "Automated build triggered via Jenkins SCM polling." >> README.md
+git add README.md
+git commit -m "Update README to trigger automated Jenkins build"
+git push
+
+
+Push to GitHub followed by an automatic Jenkins build
+4. Deployment steps
+The Deploy stage of the Jenkinsfile copies the tested app to the deployment directory and runs it there. Deploy runs only if Build and Test succeeded.
+stage('Deploy') {
+    steps {
+        echo 'Deploying application...'
+        sh 'mkdir -p /tmp/deploy && cp app.py /tmp/deploy/'
+        sh 'python3 /tmp/deploy/app.py'
+        echo 'Deployed successfully'
+    }
+}
+
+5. Post-build actions
+A post block in the Jenkinsfile reports the result after every run: a message on success and a message on failure.
+post {
+    success { echo 'Pipeline completed successfully' }
+    failure { echo 'Pipeline failed' }
+}
+
+
+Pipeline build #1 succeeded (9.3 s) using the Jenkinsfile with Build, Test, Deploy and post stages
+6. Result
+A push to GitHub triggers an automatic Jenkins build, and the pipeline then builds, tests, deploys and reports the result without manual steps.

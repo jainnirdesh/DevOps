@@ -1,0 +1,17 @@
+=== Build ===
+Python 3.14.2
+=== Test ===
+test_empty_message (test_app.TestApp.test_empty_message) ... ok
+test_farewell (test_app.TestApp.test_farewell) ... ok
+test_greet (test_app.TestApp.test_greet) ... ok
+test_shout (test_app.TestApp.test_shout) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+=== Deploy ===
+Hello, DevOps!
+Goodbye, DevOps!
+DEVOPS AUTOMATION
+Pipeline completed successfully

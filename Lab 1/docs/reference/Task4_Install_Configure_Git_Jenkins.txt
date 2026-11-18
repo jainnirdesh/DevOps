@@ -1,0 +1,57 @@
+Lab 1 — Task 4: Install and Configure Git and Jenkins
+Yatharth Chopra  |  Ubuntu 26.04 LTS on AWS EC2 (ap-south-1)
+Objective
+Install and configure Git on Ubuntu Linux, verify the installation, and set up the global Git configuration (user name and email). Jenkins is also installed and verified as a running service.
+Environment
+Platform      : AWS EC2 (Asia Pacific - Mumbai, ap-south-1)
+Instance      : i-0b3a412e4be4292c1 (Devops_lab)
+OS            : Ubuntu 26.04 LTS (GNU/Linux 7.0.0-1006-aws x86_64)
+Access        : EC2 Instance Connect (browser-based SSH)
+Step 1 — Install Git
+The package index is refreshed and Git is installed from the Ubuntu repositories.
+sudo apt update
+sudo apt install -y git
+Step 2 — Verify the installation
+The installed version is confirmed with:
+git --version
+Output: git version 2.53.0
+Step 3 — Set the global Git configuration
+The identity used to author commits is set globally, along with the default branch name for new repositories.
+git config --global user.name "Yatharth Chopra"
+git config --global user.email "yc9891966@gmail.com"
+git config --global init.defaultBranch main
+Step 4 — Verify the configuration
+git config --global --list
+Output:
+user.name=Yatharth Chopra
+user.email=yc9891966@gmail.com
+init.defaultbranch=main
+Screenshot — Git installation and configuration
+
+Figure 1 — Git installed (v2.53.0) and global configuration verified via git config --global --list
+
+Jenkins Installation
+Jenkins was installed from the official Jenkins LTS apt repository. Java 21 (OpenJDK) was installed first as a prerequisite.
+sudo apt install -y fontconfig openjdk-21-jre
+ 
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key \
+  | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+ 
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  "https://pkg.jenkins.io/debian-stable binary/" \
+  | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+ 
+sudo apt update
+sudo apt install -y jenkins
+sudo systemctl enable --now jenkins
+sudo systemctl status jenkins --no-pager
+Note: the Jenkins project rotated its Linux repository signing keys, so the current 2026 key is required. Using the older 2023 key produces a NO_PUBKEY 7198F4B714ABFC68 error and the jenkins package cannot be located.
+Screenshot — Jenkins service running
+
+Figure 2 — jenkins.service is enabled and active (running), listening on port 8080
+Screenshot — Jenkins web interface
+Port 8080 was opened in the EC2 security group, and the Jenkins setup wizard was completed by installing the suggested plugins.
+
+Figure 3 — Jenkins 2.568.2 setup wizard installing the suggested plugins at http://15.252.121.149:8080
+Result
+Git 2.53.0 is installed and configured with the global user name and email. Jenkins 2.568.2 is installed, enabled at boot, running as a systemd service, and accessible through its web interface. Task 4 is complete.

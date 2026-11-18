@@ -1,0 +1,61 @@
+Lab 1 — Task 6: Basic Jenkins CI/CD Pipeline
+Yatharth Chopra  |  Jenkins 2.568.2 on AWS EC2  |  Job: devops-lab1-freestyle
+Objective
+Implement a basic Jenkins CI/CD pipeline that pulls source code from the GitHub repository and triggers an automated build.
+Prerequisite — Jenkins executor availability
+Jenkins takes its built-in node offline when the temporary directory has less than 1 GiB free. On this instance /tmp is a tmpfs sized at 455 MiB, so the threshold could never be met and no build would ever start. Jenkins was reconfigured to use a temporary directory on the root filesystem instead.
+sudo mkdir -p /var/lib/jenkins/tmp
+sudo chown jenkins:jenkins /var/lib/jenkins/tmp
+ 
+sudo tee /etc/systemd/system/jenkins.service.d/override.conf << EOF
+[Service]
+Environment="JAVA_OPTS=-Djava.awt.headless=true \
+  -Djava.io.tmpdir=/var/lib/jenkins/tmp"
+EOF
+ 
+sudo systemctl daemon-reload
+sudo systemctl restart jenkins
+The built-in node was then brought back online, making both build executors available.
+Step 1 — Create the Freestyle project
+A new Freestyle project named devops-lab1-freestyle was created from the Jenkins dashboard (New Item → Freestyle project).
+Step 2 — Configure Source Code Management
+Git is selected as the SCM and pointed at the GitHub repository created in Task 5. No credentials are required because the repository is public. The branch specifier restricts builds to the main branch.
+Repository URL   : https://github.com/yatharthchopra2424/devops-lab1.git
+Credentials      : - none - (public repository)
+Branch Specifier : */main
+
+Figure 1 — Source Code Management configured to pull from the GitHub repository on branch main
+Step 3 — Configure the automated build trigger
+Poll SCM is enabled with the schedule H/5 * * * *, which instructs Jenkins to check the repository for new commits every five minutes and start a build automatically whenever a change is detected. This is what makes the pipeline automated rather than manual.
+
+Figure 2 — Poll SCM trigger enabled with a five-minute polling schedule
+Step 4 — Define the build step
+An Execute shell build step compiles and verifies the application by printing the build environment, running the application, and executing the unit test suite.
+echo "=== Build started on $(hostname) ==="
+python3 --version
+python3 app.py
+echo "=== Running tests ==="
+python3 -m unittest test_app.py -v
+
+Figure 3 — Execute shell build step running the application and its unit tests
+Step 5 — Manual build (Build Now)
+The first build was started manually to verify the configuration. Jenkins cloned the repository at revision 7192aacad20cd7bb75f7bd32702a6d3a8922e025 from refs/remotes/origin/main and completed successfully in 4.5 seconds.
+
+Figure 4 — Build #1 completed successfully, showing the Git revision pulled from the GitHub repository
+Step 6 — Trigger an automated build from a commit
+To demonstrate the automated trigger, a change was committed and pushed to GitHub. No action was taken in Jenkins.
+cd ~/devops-lab1
+cat >> README.md << EOF
+ 
+## Build Pipeline
+Automated build triggered via Jenkins SCM polling.
+EOF
+ 
+git add README.md
+git commit -m "Update README to trigger automated Jenkins build"
+git push
+Output: [main b89da58] Update README to trigger automated Jenkins build — 1 file changed, 3 insertions(+), pushed to origin/main (28064bf..b89da58).
+
+Figure 5 — Commit pushed to GitHub; Jenkins polls the repository and starts the next build without manual intervention
+Result
+A Jenkins Freestyle project was configured to pull source code from the GitHub repository over Git and to poll the repository every five minutes for changes. A manual build confirmed the configuration works end to end, and a subsequent commit pushed to GitHub caused Jenkins to detect the change and start a build automatically. Task 6 is complete.
