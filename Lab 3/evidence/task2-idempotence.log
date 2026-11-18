@@ -1,0 +1,35 @@
+local_file.deployment_config: Refreshing state... [id=03bd254b1cc42916b63bfc16f9cbe7483a4a8964]
+null_resource.app_instances[0]: Refreshing state... [id=4330058867596572198]
+null_resource.app_instances[1]: Refreshing state... [id=3631961573752077492]
+null_resource.app_server: Refreshing state... [id=8627007018017042903]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # local_file.deployment_config must be replaced
+-/+ resource "local_file" "deployment_config" {
+      ~ content              = jsonencode(
+          ~ {
+              ~ deployed_at = "2026-11-18T16:25:48Z" -> "2026-11-18T16:26:21Z"
+                # (6 unchanged attributes hidden)
+            } # forces replacement
+        )
+      ~ content_base64sha256 = "UpHFMXfU4WhWGiO/UXRkZhZjvtH1UvOlj87YjRtJoK8=" -> (known after apply)
+      ~ content_base64sha512 = "MMWYhc/gosh9ODYPS7Msc5Cbust3hceSdwexOiGszaYwSqOfr6GkRsfHnTVbX36/x9NFopB6O0bzQTpL0YhB8w==" -> (known after apply)
+      ~ content_md5          = "f3de7ff7a2a7d2e81e92923d3680aed7" -> (known after apply)
+      ~ content_sha1         = "03bd254b1cc42916b63bfc16f9cbe7483a4a8964" -> (known after apply)
+      ~ content_sha256       = "5291c53177d4e168561a23bf517464661663bed1f552f3a58fced88d1b49a0af" -> (known after apply)
+      ~ content_sha512       = "30c59885cfe0a2c87d38360f4bb32c73909bbacb7785c7927707b13a21accda6304aa39fafa1a446c7c79d355b5f7ebfc7d345a2907a3b46f3413a4bd18841f3" -> (known after apply)
+      ~ id                   = "03bd254b1cc42916b63bfc16f9cbe7483a4a8964" -> (known after apply)
+        # (3 unchanged attributes hidden)
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
