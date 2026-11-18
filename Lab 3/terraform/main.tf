@@ -57,6 +57,5 @@ resource "local_file" "deployment_config" {
     instances   = var.instance_count
     port        = var.app_port
     student_id  = "2301420022"
-    deployed_at = plantimestamp()
   })
 }
