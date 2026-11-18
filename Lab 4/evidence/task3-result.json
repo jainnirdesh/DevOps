@@ -1,0 +1,4 @@
+{
+  "status": "PASS",
+  "detail": "Cutover and rollback verified; 47 probe requests had zero observed failures. Final route: Green. This sample does not prove universal zero downtime."
+}

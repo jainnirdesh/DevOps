@@ -1,0 +1,14 @@
+$ docker compose --env-file '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/vault.env' -p lab4-vault -f vault/docker-compose.yml up -d
+ Network lab4-vault_default Creating 
+ Network lab4-vault_default Created 
+ Container lab4-vault Creating 
+ Container lab4-vault Created 
+ Container lab4-vault Starting 
+ Container lab4-vault Started
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' scripts/vault_demo.py
+[PASS] Vault initialized and unsealed (development mode)
+[PASS] Generated credentials stored and retrieved; values redacted
+[PASS] Scoped read-only pipeline token issued (1-hour TTL)
+[PASS] Unauthorized write denied by Vault policy
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' scripts/pipeline_secret.py
+[PASS] Pipeline received DB_PASSWORD and API_KEY; values redacted

@@ -1,0 +1,23 @@
+{
+  "before": [
+    {
+      "hostname": "a9dce1a8cf15",
+      "message": "Hello from Lab4 App!",
+      "stateful_counter": 1,
+      "version": "1.0"
+    },
+    {
+      "hostname": "a9dce1a8cf15",
+      "message": "Hello from Lab4 App!",
+      "stateful_counter": 2,
+      "version": "1.0"
+    }
+  ],
+  "after": {
+    "hostname": "9d745a2b874b",
+    "message": "Hello from Lab4 App!",
+    "stateful_counter": 3,
+    "version": "1.0"
+  },
+  "archive_sha256": "5bbb3089943b4e9fcde9ff869591b5743a8ad9e0f22cfc1ff81c5b0e4c2c72da"
+}

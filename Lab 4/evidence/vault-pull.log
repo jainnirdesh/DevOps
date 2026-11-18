@@ -1,0 +1,24 @@
+latest: Pulling from hashicorp/vault
+91444644f343: Pulling fs layer
+1f1e5c616586: Pulling fs layer
+2eb57ac285d4: Pulling fs layer
+d240c95e0f14: Pulling fs layer
+40d6aba89d14: Pulling fs layer
+8c269b3da5f9: Pulling fs layer
+fdc751beee56: Pulling fs layer
+8c269b3da5f9: Download complete
+1f1e5c616586: Download complete
+40d6aba89d14: Download complete
+91444644f343: Download complete
+2eb57ac285d4: Download complete
+fdc751beee56: Download complete
+8c269b3da5f9: Pull complete
+91444644f343: Pull complete
+2eb57ac285d4: Pull complete
+d240c95e0f14: Download complete
+40d6aba89d14: Pull complete
+d240c95e0f14: Pull complete
+1f1e5c616586: Pull complete
+Digest: sha256:dfa48c2fa2b0099ccb47681ec5c4804bf5aec9d6879ecfee07ad4b92a5427ad6
+Status: Downloaded newer image for hashicorp/vault:latest
+docker.io/hashicorp/vault:latest

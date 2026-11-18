@@ -1,0 +1,4 @@
+{
+  "status": "PASS",
+  "detail": "100-request samples verified 90/10, 75/25, 50/50, full canary promotion and stable rollback. Final configuration: 90/10. Requests are a local sequential sample."
+}

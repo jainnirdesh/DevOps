@@ -1,0 +1,4 @@
+{
+  "status": "PASS",
+  "detail": "Generated credentials stored and read back; scoped read-only token injected credentials into a pipeline child process; unauthorized write denied. Vault dev mode is ephemeral and uses local HTTP."
+}

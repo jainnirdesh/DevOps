@@ -1,0 +1,36 @@
+$ docker compose -p lab4-bg -f blue-green/docker-compose.yml up -d
+ Network lab4-bg_bg-net Creating 
+ Network lab4-bg_bg-net Created 
+ Container lab4-green Creating 
+ Container lab4-blue Creating 
+ Container lab4-green Created 
+ Container lab4-blue Created 
+ Container lab4-bg-nginx Creating 
+ Container lab4-bg-nginx Created 
+ Container lab4-green Starting 
+ Container lab4-blue Starting 
+ Container lab4-blue Started 
+ Container lab4-green Started 
+ Container lab4-bg-nginx Starting 
+ Container lab4-bg-nginx Started
+$ docker exec lab4-bg-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-bg-nginx nginx -s reload
+2026/11/18 17:23:10 [notice] 39#39: signal process started
+$ docker exec lab4-bg-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-bg-nginx nginx -s reload
+2026/11/18 17:23:10 [notice] 56#56: signal process started
+$ docker exec lab4-bg-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-bg-nginx nginx -s reload
+2026/11/18 17:23:11 [notice] 72#72: signal process started
+$ docker exec lab4-bg-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-bg-nginx nginx -s reload
+2026/11/18 17:23:11 [notice] 88#88: signal process started
+[PASS] Blue -> Green -> Blue rollback -> Green; 47 probe requests, zero observed failures

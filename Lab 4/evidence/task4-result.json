@@ -1,0 +1,4 @@
+{
+  "status": "PASS",
+  "detail": "Isolated local Git remote: desired state fetched by revision, drift repaired, v2 promoted and Git revert rolled back to v1. Controller cycles invoked explicitly; no hosted GitOps controller."
+}

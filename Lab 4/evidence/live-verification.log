@@ -1,0 +1,2 @@
+[PASS] Pipeline received DB_PASSWORD and API_KEY; values redacted
+PASS: recovery, Green routing, Canary health, GitOps app/sidecar, Vault and scoped secret injection

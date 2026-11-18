@@ -1,0 +1,68 @@
+$ git init --bare --initial-branch=main '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git'
+Initialized empty Git repository in /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git/
+$ git init --initial-branch=main '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author'
+Initialized empty Git repository in /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author/.git/
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' config user.name 'Lab 4 Demo'
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' config user.email lab4@localhost
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' add desired-state.yml
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' commit -m 'Declare Lab 4 v1 desired state'
+[main (root-commit) 4de526f] Declare Lab 4 v1 desired state
+ 1 file changed, 16 insertions(+)
+ create mode 100644 desired-state.yml
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' remote add origin '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git'
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' push -u origin main
+branch 'main' set up to track 'origin/main'.
+To /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git
+ * [new branch]      main -> main
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: 4de526fccbb6482ba8aa8004a5dc78f67b818173
+[DRIFT] lab4-gitops-app: missing
+[APPLIED] lab4-gitops-app -> lab4-app:1.0
+[DRIFT] lab4-gitops-sidecar: missing
+[APPLIED] lab4-gitops-sidecar -> nginx:alpine
+[PASS] Reconciled 2 services; changed=2
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: 4de526fccbb6482ba8aa8004a5dc78f67b818173
+[OK] lab4-gitops-app: no drift
+[OK] lab4-gitops-sidecar: no drift
+[PASS] Reconciled 2 services; changed=0
+$ docker stop lab4-gitops-app
+lab4-gitops-app
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: 4de526fccbb6482ba8aa8004a5dc78f67b818173
+[DRIFT] lab4-gitops-app: stopped
+[APPLIED] lab4-gitops-app -> lab4-app:1.0
+[OK] lab4-gitops-sidecar: no drift
+[PASS] Reconciled 2 services; changed=1
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' add desired-state.yml
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' commit -m 'Promote GitOps app to v2'
+[main ff04fc3] Promote GitOps app to v2
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' push origin main
+To /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git
+   4de526f..ff04fc3  main -> main
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: ff04fc3b9051137b470c4d5d87ef6062e51680b0
+[DRIFT] lab4-gitops-app: image, image content, environment
+[APPLIED] lab4-gitops-app -> lab4-app:2.0
+[OK] lab4-gitops-sidecar: no drift
+[PASS] Reconciled 2 services; changed=1
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' revert --no-edit HEAD
+[main ece0ad6] Revert "Promote GitOps app to v2"
+ Date: Wed Nov 18 22:53:27 2026 +0530
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' push origin main
+To /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git
+   ff04fc3..ece0ad6  main -> main
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: ece0ad607f53d77c9a90a45fd2f3e4910ba62020
+[DRIFT] lab4-gitops-app: image, image content, environment
+[APPLIED] lab4-gitops-app -> lab4-app:1.0
+[OK] lab4-gitops-sidecar: no drift
+[PASS] Reconciled 2 services; changed=1
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: ece0ad607f53d77c9a90a45fd2f3e4910ba62020
+[OK] lab4-gitops-app: no drift
+[OK] lab4-gitops-sidecar: no drift
+[PASS] Reconciled 2 services; changed=0
+[PASS] Git-backed create, no-drift, stopped-container repair, v2 promotion, and Git-revert rollback verified

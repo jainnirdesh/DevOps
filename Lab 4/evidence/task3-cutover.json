@@ -1,0 +1,209 @@
+{
+  "initial": {
+    "hostname": "6b8eb5df1a47",
+    "message": "Hello from Lab4 App!",
+    "stateful_counter": 1,
+    "version": "1.0-blue"
+  },
+  "green": {
+    "hostname": "52e7e4a5168c",
+    "message": "Hello from Lab4 App v2 - New Features Deployed!",
+    "version": "2.0-green"
+  },
+  "rollback": {
+    "hostname": "6b8eb5df1a47",
+    "message": "Hello from Lab4 App!",
+    "stateful_counter": 18,
+    "version": "1.0-blue"
+  },
+  "samples": [
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "1.0-blue",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    },
+    {
+      "version": "2.0-green",
+      "ok": true
+    }
+  ]
+}

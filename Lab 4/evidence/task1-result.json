@@ -1,0 +1,4 @@
+{
+  "status": "PASS",
+  "detail": "Backup verified at counter 2; original volume deleted; failover resumed at 3. Recovery covers the saved snapshot."
+}

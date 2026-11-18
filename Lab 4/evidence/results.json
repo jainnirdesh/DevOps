@@ -1,0 +1,30 @@
+{
+  "1": {
+    "status": "PASS",
+    "detail": "Backup verified at counter 2; original volume deleted; failover resumed at 3. Recovery covers the saved snapshot."
+  },
+  "3": {
+    "status": "PASS",
+    "detail": "Cutover and rollback verified; 47 probe requests had zero observed failures. Final route: Green. This sample does not prove universal zero downtime."
+  },
+  "4": {
+    "status": "PASS",
+    "detail": "Isolated local Git remote: desired state fetched by revision, drift repaired, v2 promoted and Git revert rolled back to v1. Controller cycles invoked explicitly; no hosted GitOps controller."
+  },
+  "7": {
+    "status": "PASS",
+    "detail": "100-request samples verified 90/10, 75/25, 50/50, full canary promotion and stable rollback. Final configuration: 90/10. Requests are a local sequential sample."
+  },
+  "6": {
+    "status": "PASS",
+    "detail": "Generated credentials stored and read back; scoped read-only token injected credentials into a pipeline child process; unauthorized write denied. Vault dev mode is ephemeral and uses local HTTP."
+  },
+  "2": {
+    "status": "PASS",
+    "detail": "Local Build -> 7 pytest tests -> scoped Vault injection -> Deploy -> Verify pipeline passed. Jenkinsfile prepared; Jenkins server requires authentication and no server build is claimed."
+  },
+  "5": {
+    "status": "PASS",
+    "detail": "Seven task-wise Markdown and DOCX reports generated from actual execution logs and measured results."
+  }
+}

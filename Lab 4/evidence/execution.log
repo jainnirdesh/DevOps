@@ -1,0 +1,192 @@
+$ docker volume create --label lab=lab4 lab4-dr-vol
+lab4-dr-vol
+$ docker run -d --name lab4-dr-app --label lab=lab4 -v lab4-dr-vol:/data -p 127.0.0.1:5200:5000 lab4-app:1.0
+a9dce1a8cf157cb9d2ded587ffb48c90e9b48a558a5d0d12b76e7afcdcf21df0
+Primary counters: 1, 2
+$ bash disaster-recovery/backup.sh
+Backup complete: backup_snapshot.tar.gz
+$ docker run --rm -v '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/disaster-recovery:/backup:ro' lab4-app:1.0 python -c 'import tarfile; t=tarfile.open("/backup/backup_snapshot.tar.gz"); print(t.extractfile("./counter.txt").read().decode())'
+2
+$ docker rm -f lab4-dr-app
+lab4-dr-app
+$ docker volume rm lab4-dr-vol
+lab4-dr-vol
+$ bash disaster-recovery/restore.sh
+lab4-dr-vol-restored
+Restore complete: lab4-dr-vol-restored
+$ docker run -d --name lab4-dr-failover --label lab=lab4 -v lab4-dr-vol-restored:/data -p 127.0.0.1:5201:5000 lab4-app:1.0
+9d745a2b874b0e1abd3e8a4bf6f82c5a06fe44acf85bfcea4c394601f29181af
+[PASS] Primary volume deleted; restored counter resumed at 3
+$ docker compose -p lab4-bg -f blue-green/docker-compose.yml up -d
+ Network lab4-bg_bg-net Creating 
+ Network lab4-bg_bg-net Created 
+ Container lab4-green Creating 
+ Container lab4-blue Creating 
+ Container lab4-green Created 
+ Container lab4-blue Created 
+ Container lab4-bg-nginx Creating 
+ Container lab4-bg-nginx Created 
+ Container lab4-green Starting 
+ Container lab4-blue Starting 
+ Container lab4-blue Started 
+ Container lab4-green Started 
+ Container lab4-bg-nginx Starting 
+ Container lab4-bg-nginx Started
+$ docker exec lab4-bg-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-bg-nginx nginx -s reload
+2026/11/18 17:23:10 [notice] 39#39: signal process started
+$ docker exec lab4-bg-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-bg-nginx nginx -s reload
+2026/11/18 17:23:10 [notice] 56#56: signal process started
+$ docker exec lab4-bg-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-bg-nginx nginx -s reload
+2026/11/18 17:23:11 [notice] 72#72: signal process started
+$ docker exec lab4-bg-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-bg-nginx nginx -s reload
+2026/11/18 17:23:11 [notice] 88#88: signal process started
+[PASS] Blue -> Green -> Blue rollback -> Green; 47 probe requests, zero observed failures
+$ git init --bare --initial-branch=main '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git'
+Initialized empty Git repository in /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git/
+$ git init --initial-branch=main '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author'
+Initialized empty Git repository in /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author/.git/
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' config user.name 'Lab 4 Demo'
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' config user.email lab4@localhost
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' add desired-state.yml
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' commit -m 'Declare Lab 4 v1 desired state'
+[main (root-commit) 4de526f] Declare Lab 4 v1 desired state
+ 1 file changed, 16 insertions(+)
+ create mode 100644 desired-state.yml
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' remote add origin '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git'
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' push -u origin main
+branch 'main' set up to track 'origin/main'.
+To /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git
+ * [new branch]      main -> main
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: 4de526fccbb6482ba8aa8004a5dc78f67b818173
+[DRIFT] lab4-gitops-app: missing
+[APPLIED] lab4-gitops-app -> lab4-app:1.0
+[DRIFT] lab4-gitops-sidecar: missing
+[APPLIED] lab4-gitops-sidecar -> nginx:alpine
+[PASS] Reconciled 2 services; changed=2
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: 4de526fccbb6482ba8aa8004a5dc78f67b818173
+[OK] lab4-gitops-app: no drift
+[OK] lab4-gitops-sidecar: no drift
+[PASS] Reconciled 2 services; changed=0
+$ docker stop lab4-gitops-app
+lab4-gitops-app
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: 4de526fccbb6482ba8aa8004a5dc78f67b818173
+[DRIFT] lab4-gitops-app: stopped
+[APPLIED] lab4-gitops-app -> lab4-app:1.0
+[OK] lab4-gitops-sidecar: no drift
+[PASS] Reconciled 2 services; changed=1
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' add desired-state.yml
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' commit -m 'Promote GitOps app to v2'
+[main ff04fc3] Promote GitOps app to v2
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' push origin main
+To /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git
+   4de526f..ff04fc3  main -> main
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: ff04fc3b9051137b470c4d5d87ef6062e51680b0
+[DRIFT] lab4-gitops-app: image, image content, environment
+[APPLIED] lab4-gitops-app -> lab4-app:2.0
+[OK] lab4-gitops-sidecar: no drift
+[PASS] Reconciled 2 services; changed=1
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' revert --no-edit HEAD
+[main ece0ad6] Revert "Promote GitOps app to v2"
+ Date: Wed Nov 18 22:53:27 2026 +0530
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+$ git -C '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/author' push origin main
+To /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git
+   ff04fc3..ece0ad6  main -> main
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: ece0ad607f53d77c9a90a45fd2f3e4910ba62020
+[DRIFT] lab4-gitops-app: image, image content, environment
+[APPLIED] lab4-gitops-app -> lab4-app:1.0
+[OK] lab4-gitops-sidecar: no drift
+[PASS] Reconciled 2 services; changed=1
+$ '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.venv/bin/python' gitops/controller.py --repository '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/remote.git' --checkout '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/.runtime/gitops/controller'
+Git revision: ece0ad607f53d77c9a90a45fd2f3e4910ba62020
+[OK] lab4-gitops-app: no drift
+[OK] lab4-gitops-sidecar: no drift
+[PASS] Reconciled 2 services; changed=0
+[PASS] Git-backed create, no-drift, stopped-container repair, v2 promotion, and Git-revert rollback verified
+$ docker compose -p lab4-canary -f canary/docker-compose.yml up -d
+ Network lab4-canary_canary-net Creating 
+ Network lab4-canary_canary-net Created 
+ Container lab4-stable Creating 
+ Container lab4-canary Creating 
+ Container lab4-canary Created 
+ Container lab4-stable Created 
+ Container lab4-canary-nginx Creating 
+ Container lab4-canary-nginx Created 
+ Container lab4-canary Starting 
+ Container lab4-stable Starting 
+ Container lab4-canary Started 
+ Container lab4-stable Started 
+ Container lab4-canary-nginx Starting 
+ Container lab4-canary-nginx Started
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:31 [notice] 38#38: signal process started
+90-10: {"1.0-stable": 90, "2.0-canary": 10}
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:32 [notice] 54#54: signal process started
+75-25: {"1.0-stable": 76, "2.0-canary": 24}
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:33 [notice] 70#70: signal process started
+50-50: {"1.0-stable": 52, "2.0-canary": 48}
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:33 [notice] 86#86: signal process started
+100-canary: {"2.0-canary": 100}
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:34 [notice] 102#102: signal process started
+rollback-stable: {"1.0-stable": 100}
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:35 [notice] 118#118: signal process started
+[PASS] Weighted rollout, full promotion, rollback verified; final split restored to 90/10
+{
+  "1": {
+    "status": "PASS",
+    "detail": "Backup verified at counter 2; original volume deleted; failover resumed at 3. Recovery covers the saved snapshot."
+  },
+  "3": {
+    "status": "PASS",
+    "detail": "Cutover and rollback verified; 47 probe requests had zero observed failures. Final route: Green. This sample does not prove universal zero downtime."
+  },
+  "4": {
+    "status": "PASS",
+    "detail": "Isolated local Git remote: desired state fetched by revision, drift repaired, v2 promoted and Git revert rolled back to v1. Controller cycles invoked explicitly; no hosted GitOps controller."
+  },
+  "7": {
+    "status": "PASS",
+    "detail": "100-request samples verified 90/10, 75/25, 50/50, full canary promotion and stable rollback. Final configuration: 90/10. Requests are a local sequential sample."
+  }
+}

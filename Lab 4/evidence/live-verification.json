@@ -1,0 +1,22 @@
+{
+  "5201": {
+    "status": "healthy",
+    "version": "1.0"
+  },
+  "5300": {
+    "status": "healthy",
+    "version": "2.0-green"
+  },
+  "5500": {
+    "status": "healthy",
+    "version": "1.0-gitops"
+  },
+  "5400": {
+    "status": "healthy",
+    "version": "1.0-stable"
+  },
+  "vault": {
+    "initialized": true,
+    "sealed": false
+  }
+}

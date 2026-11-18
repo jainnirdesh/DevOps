@@ -1,0 +1,51 @@
+$ docker compose -p lab4-canary -f canary/docker-compose.yml up -d
+ Network lab4-canary_canary-net Creating 
+ Network lab4-canary_canary-net Created 
+ Container lab4-stable Creating 
+ Container lab4-canary Creating 
+ Container lab4-canary Created 
+ Container lab4-stable Created 
+ Container lab4-canary-nginx Creating 
+ Container lab4-canary-nginx Created 
+ Container lab4-canary Starting 
+ Container lab4-stable Starting 
+ Container lab4-canary Started 
+ Container lab4-stable Started 
+ Container lab4-canary-nginx Starting 
+ Container lab4-canary-nginx Started
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:31 [notice] 38#38: signal process started
+90-10: {"1.0-stable": 90, "2.0-canary": 10}
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:32 [notice] 54#54: signal process started
+75-25: {"1.0-stable": 76, "2.0-canary": 24}
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:33 [notice] 70#70: signal process started
+50-50: {"1.0-stable": 52, "2.0-canary": 48}
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:33 [notice] 86#86: signal process started
+100-canary: {"2.0-canary": 100}
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:34 [notice] 102#102: signal process started
+rollback-stable: {"1.0-stable": 100}
+$ docker exec lab4-canary-nginx nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ docker exec lab4-canary-nginx nginx -s reload
+2026/11/18 17:23:35 [notice] 118#118: signal process started
+[PASS] Weighted rollout, full promotion, rollback verified; final split restored to 90/10

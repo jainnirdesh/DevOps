@@ -1,0 +1,19 @@
+$ docker volume create --label lab=lab4 lab4-dr-vol
+lab4-dr-vol
+$ docker run -d --name lab4-dr-app --label lab=lab4 -v lab4-dr-vol:/data -p 127.0.0.1:5200:5000 lab4-app:1.0
+a9dce1a8cf157cb9d2ded587ffb48c90e9b48a558a5d0d12b76e7afcdcf21df0
+Primary counters: 1, 2
+$ bash disaster-recovery/backup.sh
+Backup complete: backup_snapshot.tar.gz
+$ docker run --rm -v '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 4/disaster-recovery:/backup:ro' lab4-app:1.0 python -c 'import tarfile; t=tarfile.open("/backup/backup_snapshot.tar.gz"); print(t.extractfile("./counter.txt").read().decode())'
+2
+$ docker rm -f lab4-dr-app
+lab4-dr-app
+$ docker volume rm lab4-dr-vol
+lab4-dr-vol
+$ bash disaster-recovery/restore.sh
+lab4-dr-vol-restored
+Restore complete: lab4-dr-vol-restored
+$ docker run -d --name lab4-dr-failover --label lab=lab4 -v lab4-dr-vol-restored:/data -p 127.0.0.1:5201:5000 lab4-app:1.0
+9d745a2b874b0e1abd3e8a4bf6f82c5a06fe44acf85bfcea4c394601f29181af
+[PASS] Primary volume deleted; restored counter resumed at 3
