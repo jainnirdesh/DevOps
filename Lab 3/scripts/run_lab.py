@@ -58,7 +58,16 @@ else:
     for n in ['3', '5']:
         RESULTS[n] = {'status': 'FAIL', 'detail': 'Combined live verification failed; inspect live-verification.log for the failing service.'}
 task(4, [['bash', 'devsecops/trivy_scan.sh', 'lab3-flask-app', '1.0']], 'task4-security.log', 'Actual app image scanned; no CRITICAL vulnerabilities reported. Jenkins configuration provided; no Jenkins server job executed.')
+scan = subprocess.run(['docker', 'run', '--rm', '-v', '/var/run/docker.sock:/var/run/docker.sock', '-v', 'lab3-trivy-cache:/root/.cache', 'aquasec/trivy:latest', 'image', '--skip-db-update', '--severity', 'HIGH,CRITICAL', '--format', 'json', 'lab3-flask-app:1.0'], capture_output=True, text=True)
+(E/'task4-json-scan.log').write_text(scan.stderr)
+if scan.returncode == 0:
+    (E/'task4-vulnerabilities.json').write_text(scan.stdout)
+    from collections import Counter
+    counts = Counter(v['Severity'] for r in json.loads(scan.stdout).get('Results', []) for v in r.get('Vulnerabilities', []))
+    RESULTS['4']['detail'] += f' Package findings: {counts["HIGH"]} HIGH, {counts["CRITICAL"]} CRITICAL.'
 (E/'results.json').write_text(json.dumps(RESULTS, indent=2))
 report_code = command([sys.executable, 'scripts/build_reports.py'], 'task7-reports.log')
+RESULTS['7'] = {'status': 'PASS' if report_code == 0 else 'FAIL', 'detail': 'Report generation exit code: ' + str(report_code)}
+(E/'results.json').write_text(json.dumps(RESULTS, indent=2))
 print(json.dumps(RESULTS, indent=2))
 sys.exit(1 if report_code or any(r['status'] != 'PASS' for r in RESULTS.values()) else 0)

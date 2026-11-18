@@ -8,12 +8,12 @@
     "detail": "Terraform initialized, validated, planned and applied two simulated instance resources. Repeat plan reports no changes; scaling plan to three recorded. No cloud machines provisioned."
   },
   "3": {
-    "status": "IN PROGRESS",
-    "detail": "ELK image downloads are in progress. Centralized logging has not yet been verified."
+    "status": "PASS",
+    "detail": "Flask JSON request events indexed in Elasticsearch. Kibana healthy and lab3-logs-* data view created. Logstash heap raised to 512 MB after initial heap exhaustion."
   },
   "4": {
     "status": "PASS",
-    "detail": "Trivy scanned the actual app image; no CRITICAL vulnerabilities reported. Jenkinsfile configured, no Jenkins server job claimed."
+    "detail": "Trivy app-image scan: 48 HIGH package findings, 0 CRITICAL. Critical gate passed; HIGH findings remain. Jenkins configured, no Jenkins server job executed."
   },
   "5": {
     "status": "PASS",
@@ -22,5 +22,9 @@
   "6": {
     "status": "PASS",
     "detail": "All 17 supplied feature flag unit tests passed."
+  },
+  "7": {
+    "status": "PASS",
+    "detail": "Seven DOCX reports generated from actual run evidence, with rendered log excerpts and explicit limitations."
   }
 }

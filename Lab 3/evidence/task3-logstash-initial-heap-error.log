@@ -1,0 +1,58 @@
+Using bundled JDK: /usr/share/logstash/jdk
+OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
+Sending Logstash logs to /usr/share/logstash/logs which is now configured via log4j2.properties
+[2026-11-18T16:53:57,060][INFO ][logstash.runner          ] Log4j configuration path used is: /usr/share/logstash/config/log4j2.properties
+[2026-11-18T16:53:57,266][INFO ][logstash.runner          ] Starting Logstash {"logstash.version"=>"7.17.15", "jruby.version"=>"jruby 9.2.20.1 (2.5.8) 2021-11-30 2a2962fbd1 OpenJDK 64-Bit Server VM 11.0.20+8 on 11.0.20+8 +indy +jit [linux-aarch64]"}
+[2026-11-18T16:53:57,268][INFO ][logstash.runner          ] JVM bootstrap flags: [-Xms1g, -Xmx1g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djdk.io.File.enableADS=true, -Djruby.compile.invokedynamic=true, -Djruby.jit.threshold=0, -Djruby.regexp.interruptible=true, -XX:+HeapDumpOnOutOfMemoryError, -Djava.security.egd=file:/dev/urandom, -Dlog4j2.isThreadContextMapInheritable=true, -Dls.cgroup.cpuacct.path.override=/, -Dls.cgroup.cpu.path.override=/, -Xms128m, -Xmx128m]
+[2026-11-18T16:53:57,292][INFO ][logstash.settings        ] Creating directory {:setting=>"path.queue", :path=>"/usr/share/logstash/data/queue"}
+[2026-11-18T16:53:57,312][INFO ][logstash.settings        ] Creating directory {:setting=>"path.dead_letter_queue", :path=>"/usr/share/logstash/data/dead_letter_queue"}
+[2026-11-18T16:53:57,919][INFO ][logstash.agent           ] No persistent UUID file found. Generating new UUID {:uuid=>"8d01911c-fb44-4c69-aa14-fd447880ae11", :path=>"/usr/share/logstash/data/uuid"}
+[2026-11-18T16:53:59,705][WARN ][logstash.monitoringextension.pipelineregisterhook] xpack.monitoring.enabled has not been defined, but found elasticsearch configuration. Please explicitly set `xpack.monitoring.enabled: true` in logstash.yml
+[2026-11-18T16:53:59,707][WARN ][deprecation.logstash.monitoringextension.pipelineregisterhook] Internal collectors option for Logstash monitoring is deprecated and may be removed in a future release.
+Please configure Metricbeat to monitor Logstash. Documentation can be found at: 
+https://www.elastic.co/guide/en/logstash/current/monitoring-with-metricbeat.html
+[2026-11-18T16:54:00,637][WARN ][deprecation.logstash.codecs.plain] Relying on default value of `pipeline.ecs_compatibility`, which may change in a future major release of Logstash. To avoid unexpected changes when upgrading Logstash, please explicitly declare your desired ECS Compatibility mode.
+[2026-11-18T16:54:00,963][WARN ][deprecation.logstash.outputs.elasticsearch] Relying on default value of `pipeline.ecs_compatibility`, which may change in a future major release of Logstash. To avoid unexpected changes when upgrading Logstash, please explicitly declare your desired ECS Compatibility mode.
+[2026-11-18T16:54:02,166][INFO ][logstash.licensechecker.licensereader] Elasticsearch pool URLs updated {:changes=>{:removed=>[], :added=>[http://elasticsearch:9200/]}}
+[2026-11-18T16:54:02,904][WARN ][logstash.licensechecker.licensereader] Restored connection to ES instance {:url=>"http://elasticsearch:9200/"}
+[2026-11-18T16:54:02,918][INFO ][logstash.licensechecker.licensereader] Elasticsearch version determined (7.17.15) {:es_version=>7}
+[2026-11-18T16:54:03,077][WARN ][logstash.licensechecker.licensereader] Detected a 6.x and above cluster: the `type` event field won't be used to determine the document _type {:es_version=>7}
+[2026-11-18T16:54:03,318][INFO ][logstash.monitoring.internalpipelinesource] Monitoring License OK
+[2026-11-18T16:54:03,318][INFO ][logstash.monitoring.internalpipelinesource] Validated license for monitoring. Enabling monitoring pipeline.
+[2026-11-18T16:54:04,457][INFO ][logstash.agent           ] Successfully started Logstash API endpoint {:port=>9600, :ssl_enabled=>false}
+[2026-11-18T16:54:15,735][INFO ][org.reflections.Reflections] Reflections took 1762 ms to scan 1 urls, producing 119 keys and 419 values 
+[2026-11-18T16:54:18,202][WARN ][deprecation.logstash.codecs.plain] Relying on default value of `pipeline.ecs_compatibility`, which may change in a future major release of Logstash. To avoid unexpected changes when upgrading Logstash, please explicitly declare your desired ECS Compatibility mode.
+[2026-11-18T16:54:18,305][WARN ][deprecation.logstash.codecs.json] Relying on default value of `pipeline.ecs_compatibility`, which may change in a future major release of Logstash. To avoid unexpected changes when upgrading Logstash, please explicitly declare your desired ECS Compatibility mode.
+[2026-11-18T16:54:18,727][WARN ][deprecation.logstash.inputs.tcp] Relying on default value of `pipeline.ecs_compatibility`, which may change in a future major release of Logstash. To avoid unexpected changes when upgrading Logstash, please explicitly declare your desired ECS Compatibility mode.
+[2026-11-18T16:54:21,167][WARN ][deprecation.logstash.codecs.plain] Relying on default value of `pipeline.ecs_compatibility`, which may change in a future major release of Logstash. To avoid unexpected changes when upgrading Logstash, please explicitly declare your desired ECS Compatibility mode.
+[2026-11-18T16:54:21,167][WARN ][deprecation.logstash.codecs.plain] Relying on default value of `pipeline.ecs_compatibility`, which may change in a future major release of Logstash. To avoid unexpected changes when upgrading Logstash, please explicitly declare your desired ECS Compatibility mode.
+[2026-11-18T16:54:21,683][WARN ][deprecation.logstash.inputs.beats] Relying on default value of `pipeline.ecs_compatibility`, which may change in a future major release of Logstash. To avoid unexpected changes when upgrading Logstash, please explicitly declare your desired ECS Compatibility mode.
+[2026-11-18T16:54:22,524][WARN ][deprecation.logstash.outputs.elasticsearchmonitoring] Relying on default value of `pipeline.ecs_compatibility`, which may change in a future major release of Logstash. To avoid unexpected changes when upgrading Logstash, please explicitly declare your desired ECS Compatibility mode.
+java.lang.OutOfMemoryError: Java heap space
+Dumping heap to java_pid1.hprof ...
+Heap dump file created [211209243 bytes in 0.615 secs]
+[2026-11-18T16:56:14,177][INFO ][logstash.outputs.elasticsearchmonitoring][.monitoring-logstash] New Elasticsearch output {:class=>"LogStash::Outputs::ElasticSearchMonitoring", :hosts=>["http://elasticsearch:9200"]}
+2026-11-18 16:56:17,853 Ruby-0-Thread-1: /usr/share/logstash/logstash-core/lib/logstash/runner.rb:410 ERROR An exception occurred processing Appender plain_console org.apache.logging.log4j.core.appender.AppenderLoggingException: java.lang.OutOfMemoryError: Java heap space
+	at org.apache.logging.log4j.core.config.AppenderControl.tryCallAppender(AppenderControl.java:165)
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppender0(AppenderControl.java:134)
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppenderPreventRecursion(AppenderControl.java:125)
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppender(AppenderControl.java:89)
+	at org.apache.logging.log4j.core.config.LoggerConfig.callAppenders(LoggerConfig.java:542)
+	at org.apache.logging.log4j.core.config.LoggerConfig.processLogEvent(LoggerConfig.java:500)
+	at org.apache.logging.log4j.core.config.LoggerConfig.log(LoggerConfig.java:483)
+	at org.apache.logging.log4j.core.config.LoggerConfig.log(LoggerConfig.java:417)
+	at org.apache.logging.log4j.core.config.AwaitCompletionReliabilityStrategy.log(AwaitCompletionReliabilityStrategy.java:82)
+	at org.apache.logging.log4j.core.Logger.log(Logger.java:161)
+	at org.apache.logging.log4j.spi.AbstractLogger.tryLogMessage(AbstractLogger.java:2205)
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessageTrackRecursion(AbstractLogger.java:2159)
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessageSafely(AbstractLogger.java:2142)
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessage(AbstractLogger.java:2017)
+	at org.apache.logging.log4j.spi.AbstractLogger.logIfEnabled(AbstractLogger.java:1983)
+	at org.apache.logging.log4j.spi.AbstractLogger.fatal(AbstractLogger.java:1063)
+	at org.logstash.Logstash.handleFatalError(Logstash.java:107)
+	at org.logstash.Logstash.lambda$installGlobalUncaughtExceptionHandler$0(Logstash.java:99)
+	at java.base/java.lang.ThreadGroup.uncaughtException(ThreadGroup.java:1055)
+	at java.base/java.lang.ThreadGroup.uncaughtException(ThreadGroup.java:1050)
+	at java.base/java.lang.Thread.dispatchUncaughtException(Thread.java:1997)
+Caused by: java.lang.OutOfMemoryError: Java heap space
+

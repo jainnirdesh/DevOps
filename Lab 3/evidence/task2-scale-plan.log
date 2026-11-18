@@ -1,7 +1,7 @@
-local_file.deployment_config: Refreshing state... [id=167255b62860db3ed30fd2302bbbd8569057c57f]
-null_resource.app_server: Refreshing state... [id=8627007018017042903]
-null_resource.app_instances[1]: Refreshing state... [id=3631961573752077492]
 null_resource.app_instances[0]: Refreshing state... [id=4330058867596572198]
+null_resource.app_server: Refreshing state... [id=8627007018017042903]
+local_file.deployment_config: Refreshing state... [id=561bfb9579256ad2cce77727ef951116113f0cc5]
+null_resource.app_instances[1]: Refreshing state... [id=3631961573752077492]
 
 Terraform used the selected providers to generate the following execution
 plan. Resource actions are indicated with the following symbols:
@@ -15,16 +15,16 @@ Terraform will perform the following actions:
       ~ content              = jsonencode(
           ~ {
               ~ instances   = 2 -> 3
-                # (5 unchanged attributes hidden)
+                # (4 unchanged attributes hidden)
             } # forces replacement
         )
-      ~ content_base64sha256 = "eVCXQVlO/3pFEp0GWIxpP1XeWSwO+MRbQ6rZCay4j1c=" -> (known after apply)
-      ~ content_base64sha512 = "gdftgVFHcbayujFA/1BosNuW9k/5p+G2GZVGIUoeECw/a/K4BKE06E1RkFUlTkmp6Qr0TroMldrdpU7WAYumWQ==" -> (known after apply)
-      ~ content_md5          = "28bd2bebd2bcea2ad285b167685a83eb" -> (known after apply)
-      ~ content_sha1         = "167255b62860db3ed30fd2302bbbd8569057c57f" -> (known after apply)
-      ~ content_sha256       = "79509741594eff7a45129d06588c693f55de592c0ef8c45b43aad909acb88f57" -> (known after apply)
-      ~ content_sha512       = "81d7ed81514771b6b2ba3140ff5068b0db96f64ff9a7e1b6199546214a1e102c3f6bf2b804a134e84d519055254e49a9e90af44eba0c95dadda54ed6018ba659" -> (known after apply)
-      ~ id                   = "167255b62860db3ed30fd2302bbbd8569057c57f" -> (known after apply)
+      ~ content_base64sha256 = "46Q7KER9jwKX4ZrV3aN9n2aLgaUD0TivYQR4nmXSamU=" -> (known after apply)
+      ~ content_base64sha512 = "CwHfwbCcYm1ZoHtRrn+sboQnJYdHuROaOwblds3TjtcgeunpYxRo12/5RPEPhebwUYNi5+G15pR0Ct1w0mxM9Q==" -> (known after apply)
+      ~ content_md5          = "3a5708e27c198b86f090b8504d824476" -> (known after apply)
+      ~ content_sha1         = "561bfb9579256ad2cce77727ef951116113f0cc5" -> (known after apply)
+      ~ content_sha256       = "e3a43b28447d8f0297e19ad5dda37d9f668b81a503d138af6104789e65d26a65" -> (known after apply)
+      ~ content_sha512       = "0b01dfc1b09c626d59a07b51ae7fac6e8427258747b9139a3b06e576cdd38ed7207ae9e9631468d76ff944f10f85e6f0518362e7e1b5e694740add70d26c4cf5" -> (known after apply)
+      ~ id                   = "561bfb9579256ad2cce77727ef951116113f0cc5" -> (known after apply)
         # (3 unchanged attributes hidden)
     }
 

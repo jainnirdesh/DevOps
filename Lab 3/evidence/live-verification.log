@@ -1,0 +1,1 @@
+PASS: app, live metrics, indexed application logs, Kibana, all three Prometheus targets, Grafana dashboard

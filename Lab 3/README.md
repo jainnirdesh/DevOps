@@ -48,3 +48,11 @@ docker stop lab3-app
 ```
 
 Do not stop the shared Colima VM if Lab 2 is in use. Restart Compose with `up -d` and the app with `docker start lab3-app`.
+
+## Verified execution: 18 November 2026
+
+All seven local lab tasks completed. Ansible recap: 9 OK, 0 failed. Terraform applied its two simulated instances and the repeat plan found no changes. The application logs were indexed and the Kibana data view was created. All three Prometheus targets were UP, and Grafana datasource and dashboard checks passed. All 17 feature flag tests passed.
+
+Trivy recorded **48 HIGH package findings and 0 CRITICAL**. The CRITICAL-only gate passed; this does not mean the image has no vulnerabilities. Full findings are in `evidence/task4-vulnerabilities.json` and the scan transcript is in `evidence/task4-security.log`.
+
+Initial download timeouts, Logstash's original 128 MB heap error, and the corrected final execution are retained in evidence. The final Logstash configuration uses a 512 MB heap and one pipeline worker. Terraform remains a local simulation; Jenkinsfile is configured but no Jenkins server job was run.

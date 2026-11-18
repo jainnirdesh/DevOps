@@ -42,7 +42,8 @@ def verify():
     result['logs'] = get('http://localhost:9200/lab3-logs-*/_search?q=service:lab3-flask')
     assert result['logs']['hits']['total']['value'] > 0, 'Application logs not indexed yet'
     result['kibana'] = get('http://localhost:5601/api/status')
-    assert result['kibana']['status']['overall']['level'] == 'available'
+    overall = result['kibana']['status']['overall']
+    assert overall.get('level', overall.get('state')) in ('available', 'green'), overall
     request = urllib.request.Request('http://localhost:5601/api/saved_objects/index-pattern/lab3-logs?overwrite=true', data=json.dumps({'attributes': {'title': 'lab3-logs-*', 'timeFieldName': '@timestamp'}}).encode(), headers={'Content-Type': 'application/json', 'kbn-xsrf': 'lab3'}, method='POST')
     with urllib.request.urlopen(request) as response:
         result['kibana_data_view'] = json.load(response)
@@ -57,6 +58,11 @@ def verify():
     with urllib.request.urlopen(request) as response:
         result['dashboard'] = json.load(response)
     assert result['dashboard']['dashboard']['title'] == 'Lab 3 Application Monitoring'
+    request = urllib.request.Request('http://localhost:3000/api/datasources/uid/prometheus/health')
+    request.add_header('Authorization', 'Basic ' + base64.b64encode(b'admin:admin123').decode())
+    with urllib.request.urlopen(request) as response:
+        result['datasource_health'] = json.load(response)
+    assert result['datasource_health']['status'] == 'OK'
     return result
 
 
