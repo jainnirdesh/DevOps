@@ -1,0 +1,12 @@
+============================================
+ Trivy Security Scan
+ Target : lab3-flask-app:1.0
+ Date   : 2026-11-18 16:30:12 UTC
+============================================
+2026-11-18T16:30:13Z	INFO	[vulndb] Need to update DB
+2026-11-18T16:30:13Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-11-18T16:30:13Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-11-18T16:35:11Z	WARN	Provide a higher timeout value, see https://trivy.dev/docs/v0.76/guide/references/troubleshooting#timeout
+2026-11-18T16:35:11Z	FATAL	Fatal error	run error: init error: DB error: failed to download vulnerability DB: OCI artifact error: failed to download vulnerability DB: failed to download artifact from mirror.gcr.io/aquasec/trivy-db:2: oci download error: copy error: context deadline exceeded
+Lab 3/devsecops/trivy_scan.sh: line 21: ble: command not found
+[FAIL] Critical vulnerabilities found or scan failed (exit 127)

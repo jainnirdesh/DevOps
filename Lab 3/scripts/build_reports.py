@@ -55,6 +55,8 @@ for i, title in enumerate(TITLES, 1):
             doc.add_heading(f'Task {task}: {TITLES[task-1]}', 2)
             doc.add_paragraph(f"{entry['status']}: {entry['detail']}")
             doc.add_paragraph(EXPLANATIONS[task-1])
+            if (FIGURES/f'task{task}.png').exists():
+                doc.add_picture(str(FIGURES/f'task{task}.png'), width=Inches(6.3))
         doc.add_heading('Access and reproduction', 2)
         doc.add_paragraph('Flask localhost:5003; Kibana localhost:5601; Elasticsearch localhost:9200; Prometheus localhost:9090; Grafana localhost:3000 (local lab credentials admin/admin123). Run scripts/run.sh from Lab 3 after installing dependencies. See README.md for exact prerequisites and limitations.')
     existing = sorted((ROOT/'docs').glob(f'Task{i}_*.docx'))

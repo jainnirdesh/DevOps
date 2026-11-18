@@ -13,6 +13,7 @@ echo " Date   : $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
 echo "============================================"
 
 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v lab3-trivy-cache:/root/.cache/ aquasec/trivy:latest image \
+  --timeout 20m \
   --no-progress \
   --severity CRITICAL --exit-code 1 \
   --format table \

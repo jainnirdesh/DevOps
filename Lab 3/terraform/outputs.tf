@@ -14,11 +14,16 @@ output "environment" {
 }
 
 output "instance_count" {
-  description = "Number of running instances"
+  description = "Number of simulated instance resources"
   value       = var.instance_count
 }
 
 output "config_file" {
   description = "Path to the generated deployment config"
   value       = local_file.deployment_config.filename
+}
+
+output "app_url" {
+  description = "URL of the separately deployed local application"
+  value       = "http://localhost:${var.app_port}"
 }

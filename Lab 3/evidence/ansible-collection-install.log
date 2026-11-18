@@ -1,0 +1,9 @@
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-docker-5.4.0.tar.gz to /Users/nirdeshjain/.ansible/tmp/ansible-local-21629h37wxt4p/tmp1nn7u3uf/community-docker-5.4.0-zc2kx4ju
+Installing 'community.docker:5.4.0' to '/Users/nirdeshjain/.ansible/collections/ansible_collections/community/docker'
+community.docker:5.4.0 was installed successfully
+Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-library_inventory_filtering_v1-1.1.5.tar.gz to /Users/nirdeshjain/.ansible/tmp/ansible-local-21629h37wxt4p/tmp1nn7u3uf/community-library_inventory_filtering_v1-1.1.5-_sumhz4w
+Installing 'community.library_inventory_filtering_v1:1.1.5' to '/Users/nirdeshjain/.ansible/collections/ansible_collections/community/library_inventory_filtering_v1'
+community.library_inventory_filtering_v1:1.1.5 was installed successfully

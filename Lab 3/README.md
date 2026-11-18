@@ -9,12 +9,13 @@ Docker must be running. This Mac uses existing context `colima-lab2` (shared wit
 ```sh
 cd 'Lab 3'
 python3 -m venv .venv
-.venv/bin/pip install ansible docker requests python-docx pillow
+.venv/bin/pip install ansible-core docker requests python-docx pillow
+.venv/bin/ansible-galaxy collection install community.docker
 brew install hashicorp/tap/terraform
 bash scripts/run.sh
 ```
 
-The Ansible collection `community.docker` is included in the full `ansible` distribution. If using `ansible-core`, install it with `ansible-galaxy collection install community.docker`.
+The tools use `ansible-core` and the `community.docker` collection. The playbook selects its active virtual environment automatically, including when the workspace path contains spaces.
 
 | Service | URL |
 | --- | --- |

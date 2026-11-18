@@ -1,0 +1,14 @@
+ansible-galaxy [core 2.22.0]
+  config file = None
+  configured module search path = ['/Users/nirdeshjain/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 3/.venv/lib/python3.14/site-packages/ansible
+  ansible collection location = /Users/nirdeshjain/.ansible/collections:/usr/share/ansible/collections
+  executable location = Lab 3/.venv/bin/ansible-galaxy
+  python version = 3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 17.0.0 (clang-1700.6.3.2)] (/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab 3/.venv/bin/python3.14)
+  jinja version = 3.1.6
+  pyyaml version = 6.0.3 (with libyaml v0.2.5)
+No config file found; using defaults
+Starting galaxy collection install process
+Found installed collection community.library_inventory_filtering_v1:1.1.5 at '/Users/nirdeshjain/.ansible/collections/ansible_collections/community/library_inventory_filtering_v1'
+Found installed collection community.docker:5.4.0 at '/Users/nirdeshjain/.ansible/collections/ansible_collections/community/docker'
+Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.

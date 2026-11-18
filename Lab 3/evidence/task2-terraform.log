@@ -228,3 +228,33 @@ app_version = "1.0"
 config_file = "./deployment.json"
 environment = "dev"
 instance_count = 2
+Success! The configuration is valid.
+
+local_file.deployment_config: Refreshing state... [id=561bfb9579256ad2cce77727ef951116113f0cc5]
+null_resource.app_instances[1]: Refreshing state... [id=3631961573752077492]
+null_resource.app_instances[0]: Refreshing state... [id=4330058867596572198]
+null_resource.app_server: Refreshing state... [id=8627007018017042903]
+
+Changes to Outputs:
+  + app_url        = "http://localhost:5003"
+
+You can apply this plan to save these new output values to the Terraform
+state, without changing any real infrastructure.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: lab3.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "lab3.tfplan"
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+app_name = "lab3-flask-app"
+app_url = "http://localhost:5003"
+app_version = "1.0"
+config_file = "./deployment.json"
+environment = "dev"
+instance_count = 2

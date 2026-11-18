@@ -1,0 +1,23 @@
+
+PLAY [Deploy Lab3 Flask Application] *******************************************
+
+TASK [Gathering Facts] *********************************************************
+[ERROR]: Task failed: Action failed: The following modules failed to execute: ansible.legacy.setup.
+
+Task failed: Action failed.
+
+<<< caused by >>>
+
+The following modules failed to execute: ansible.legacy.setup.
+
++--[ Sub-Event 1 of 1 ]---
+| 
+| The module interpreter '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab' was not found. Consider overriding the configured interpreter path for this host. See stdout/stderr for the returned output.
+| 
++--[ End Sub-Event ]---
+
+fatal: [localhost]: FAILED! => {"ansible_facts": {}, "changed": false, "failed_modules": {"ansible.legacy.setup": {"ansible_parsed": false, "changed": false, "deprecations": [], "exception": "(traceback unavailable)", "failed": true, "module_stderr": "/bin/sh: /Users/nirdeshjain/Documents/DevOps-Lab-1/Lab: No such file or directory\n", "module_stdout": "", "msg": "The module interpreter '/Users/nirdeshjain/Documents/DevOps-Lab-1/Lab' was not found.", "rc": 127, "warnings": []}}, "msg": "The following modules failed to execute: ansible.legacy.setup."}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+

@@ -1,0 +1,37 @@
+
+PLAY [Deploy Lab3 Flask Application] *******************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Create shared lab network] ***********************************************
+changed: [localhost]
+
+TASK [Ensure app source directory exists] **************************************
+changed: [localhost]
+
+TASK [Copy application files] **************************************************
+changed: [localhost] => (item=../app/app.py)
+changed: [localhost] => (item=../app/requirements.txt)
+changed: [localhost] => (item=../app/Dockerfile)
+
+TASK [Build Docker image] ******************************************************
+changed: [localhost]
+
+TASK [Stop and remove old container if running] ********************************
+ok: [localhost]
+
+TASK [Start the Flask container] ***********************************************
+changed: [localhost]
+
+TASK [Wait for app to be ready] ************************************************
+ok: [localhost]
+
+TASK [Show health result] ******************************************************
+ok: [localhost] => {
+    "msg": "App is healthy: {'status': 'ok'}"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=9    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

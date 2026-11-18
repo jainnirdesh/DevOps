@@ -32,9 +32,7 @@ pipeline {
                 dir('Lab 3') {
                     sh '''
                         export DOCKER_HOST="$(docker context inspect --format '{{.Endpoints.docker.Host}}')"
-                        .venv/bin/ansible-playbook -i ansible/inventory ansible/playbook.yml \
-                          -e "ansible_python_interpreter=$PWD/.venv/bin/python" \
-                          -e "app_tag=$IMAGE_TAG" -e build_image=false
+                        .venv/bin/ansible-playbook -i ansible/inventory ansible/playbook.yml -e "app_tag=$IMAGE_TAG" -e build_image=false
                         docker compose -p lab3-elk -f elk/docker-compose.yml up -d
                         docker compose -p lab3-monitoring -f prometheus/docker-compose.yml up -d
                         .venv/bin/python scripts/verify.py
